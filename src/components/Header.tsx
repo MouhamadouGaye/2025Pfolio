@@ -112,12 +112,37 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div
+      {/* <div
         className={`fixed inset-0 bg-white dark:bg-gray-900 z-40 transition-transform duration-300 ease-in-out transform ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         } md:hidden flex flex-col pt-20`}
       >
         <nav className="container mx-auto px-4">
+          <ul className="flex flex-col space-y-6 text-center">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div> */}
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-0 z-50 transition-transform duration-300 ease-in-out transform ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } md:hidden flex flex-col mt-20 bg-white dark:bg-gray-900`}
+      >
+        {/* Start Test*/}
+
+        {/*fin de test */}
+        <nav className="container mx-auto p-4  bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-80">
           <ul className="flex flex-col space-y-6 text-center">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
