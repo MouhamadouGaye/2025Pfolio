@@ -4,7 +4,7 @@ import { SKILLS, SKILL_CATEGORIES } from "../data";
 import { Code, Check } from "lucide-react";
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("backend");
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const skillsRef = useRef<HTMLDivElement>(null);
   const isVisible = useIntersectionObserver(skillsRef, { threshold: 0.1 });
 
@@ -74,13 +74,19 @@ const Skills = () => {
                     ${isVisible ? "animate-fadeIn" : "opacity-0"}`}
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
-                    <div className="flex items-center mb-2">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-3">
+                    <div className="flex items-center mb-2 justify-center relative ">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-3 absolute left-0">
                         <Check size={16} />
                       </div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">
-                        {skill.name}
-                      </h3>
+                      <div className="flex justify-start items-center ">
+                        {" "}
+                        <h3 className="font-medium text-gray-900 dark:text-white">
+                          {skill.name}
+                        </h3>
+                        <span className="absolute right-0 ">
+                          <skill.lucideIcon fontSize={14} className="mr-2" />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ))}

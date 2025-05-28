@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useIntersectionObserver } from "../utils/hooks";
-import { BookOpen, Clock, Tag } from "lucide-react";
+import { BookOpen, Clock, Link, Tag } from "lucide-react";
 import type { BlogPost, MockBlogPost } from "../types";
 
 const Blog = () => {
@@ -150,9 +150,11 @@ const Blog = () => {
                         ))}
                       </div> */}
 
-                      <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
-                        Read More →
-                      </button>
+                      <a href={`/posts/${post.id}`}>
+                        <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                          Read More →
+                        </button>
+                      </a>
                     </div>
                   </article>
                 ))}
@@ -240,9 +242,11 @@ const Blog = () => {
                         ))}
                       </div>
 
-                      <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
-                        Read More →
-                      </button>
+                      <a href={`/posts/${post.id}`}>
+                        <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                          Read More →
+                        </button>
+                      </a>
                     </div>
                   </article>
                 ))}

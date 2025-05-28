@@ -1,4 +1,11 @@
-import { NavItem, Skill, Project, Experience, Education } from "../types";
+import {
+  NavItem,
+  Skill,
+  Project,
+  Experience,
+  Education,
+  MockBlogPost,
+} from "../types";
 import {
   Code,
   LayoutDashboard,
@@ -6,38 +13,150 @@ import {
   LineChart,
   Briefcase,
   Lightbulb,
+  CloudCog,
+  Code2,
+  FlaskConical,
+  CupSoda,
+  Leaf,
+  ServerCog,
+  FileCode,
+  Atom,
+  Circle,
+  Triangle,
+  Palette,
+  FileText,
+  Database,
+  GitBranch,
+  Ship,
+  Cloud,
+  BarChart3,
+  BriefcaseIcon,
+  LineChartIcon,
 } from "lucide-react";
 
+// export const NAV_ITEMS: NavItem[] = [
+//   { title: "Home", href: "#home" },
+//   { title: "About", href: "#about" },
+//   { title: "Skills", href: "#skills" },
+//   { title: "Projects", href: "#projects" },
+//   { title: "Experience", href: "#experience" },
+//   { title: "Blog", href: "#blog" },
+//   { title: "Contact", href: "#contact" },
+// ];
+
 export const NAV_ITEMS: NavItem[] = [
-  { title: "Home", href: "#home" },
-  { title: "About", href: "#about" },
-  { title: "Skills", href: "#skills" },
-  { title: "Projects", href: "#projects" },
-  { title: "Experience", href: "#experience" },
-  { title: "Blog", href: "#blog" },
-  { title: "Contact", href: "#contact" },
+  { title: "Home", href: "/#home" },
+  { title: "About", href: "/#about" },
+  { title: "Skills", href: "/#skills" },
+  { title: "Projects", href: "/#projects" },
+  { title: "Experience", href: "/#experience" },
+  { title: "Blog", href: "/#blog" },
+  { title: "Contact", href: "/#contact" },
 ];
 
+// export const SKILLS: Skill[] = [
+//   { name: "Python", icon: "python", category: "backend" },
+//   { name: "Flask", icon: "flask", category: "backend" },
+//   { name: "FastAPI", icon: "api", category: "backend" },
+//   { name: "Java", icon: "java", category: "backend" },
+//   { name: "Spring Boot", icon: "spring", category: "backend" },
+//   { name: "Node.js", icon: "node", category: "backend" },
+//   { name: "JavaScript", icon: "javascript", category: "frontend" },
+//   { name: "TypeScript", icon: "typescript", category: "frontend" },
+//   { name: "React", icon: "react", category: "frontend" },
+//   { name: "Next.js", icon: "next", category: "frontend" },
+//   { name: "Angular", icon: "angular", category: "frontend" },
+//   { name: "CSS/SCSS", icon: "css", category: "frontend" },
+//   { name: "HTML5", icon: "html", category: "frontend" },
+//   { name: "SQL", icon: "database", category: "backend" },
+//   { name: "Git", icon: "git", category: "devops" },
+//   { name: "Docker", icon: "docker", category: "devops" },
+//   { name: "AWS", icon: "cloud", category: "devops" },
+//   { name: "Fin Analysis", icon: "chart", category: "other" },
+//   { name: "Bus Strategy", icon: "strategy", category: "other" },
+// ];
+
 export const SKILLS: Skill[] = [
-  { name: "Python", icon: "python", category: "backend" },
-  { name: "Flask", icon: "flask", category: "backend" },
-  { name: "FastAPI", icon: "api", category: "backend" },
-  { name: "Java", icon: "java", category: "backend" },
-  { name: "Spring Boot", icon: "spring", category: "backend" },
-  { name: "Node.js", icon: "node", category: "backend" },
-  { name: "JavaScript", icon: "javascript", category: "frontend" },
-  { name: "TypeScript", icon: "typescript", category: "frontend" },
-  { name: "React", icon: "react", category: "frontend" },
-  { name: "Next.js", icon: "next", category: "frontend" },
-  { name: "Angular", icon: "angular", category: "frontend" },
-  { name: "CSS/SCSS", icon: "css", category: "frontend" },
-  { name: "HTML5", icon: "html", category: "frontend" },
-  { name: "SQL", icon: "database", category: "backend" },
-  { name: "Git", icon: "git", category: "devops" },
-  { name: "Docker", icon: "docker", category: "devops" },
-  { name: "AWS", icon: "cloud", category: "devops" },
-  { name: "Fin Analysis", icon: "chart", category: "other" },
-  { name: "Bus Strategy", icon: "strategy", category: "other" },
+  { name: "Python", icon: "python", lucideIcon: Code, category: "backend" },
+  {
+    name: "Flask",
+    icon: "flask",
+    lucideIcon: FlaskConical,
+    category: "backend",
+  },
+  {
+    name: "FastAPI",
+    icon: "api",
+    lucideIcon: CloudCog,
+    category: "backend",
+  },
+  { name: "Java", icon: "java", lucideIcon: CupSoda, category: "backend" }, // closest match
+  {
+    name: "Spring Boot",
+    icon: "spring",
+    lucideIcon: Leaf,
+    category: "backend",
+  },
+  { name: "Node.js", icon: "node", lucideIcon: ServerCog, category: "backend" },
+  {
+    name: "JavaScript",
+    icon: "javascript",
+    lucideIcon: FileCode,
+    category: "frontend",
+  },
+  {
+    name: "TypeScript",
+    icon: "typescript",
+    lucideIcon: FileCode,
+    category: "frontend",
+  },
+  { name: "React", icon: "react", lucideIcon: Atom, category: "frontend" },
+  { name: "Next.js", icon: "next", lucideIcon: Circle, category: "frontend" }, // placeholder
+  {
+    name: "Angular",
+    icon: "angular",
+    lucideIcon: Triangle,
+    category: "frontend",
+  }, // placeholder
+  {
+    name: "CSS/SCSS",
+    icon: "css",
+    lucideIcon: Palette,
+    category: "frontend",
+  },
+  {
+    name: "HTML5",
+    icon: "html",
+    lucideIcon: FileText,
+    category: "frontend",
+  },
+  {
+    name: "SQL",
+    icon: "database",
+    lucideIcon: Database,
+    category: "backend",
+  },
+  { name: "Git", icon: "git", lucideIcon: GitBranch, category: "devops" },
+  { name: "Docker", icon: "docker", lucideIcon: Ship, category: "devops" },
+  { name: "AWS", icon: "cloud", lucideIcon: Cloud, category: "devops" },
+  {
+    name: "Fin Analysis",
+    icon: "chart",
+    lucideIcon: BarChart3,
+    category: "finance",
+  },
+  {
+    name: "Bus Strategy",
+    icon: "finance",
+    lucideIcon: BriefcaseIcon,
+    category: "finance",
+  },
+  {
+    name: "Excel",
+    icon: "Excel",
+    lucideIcon: LineChartIcon,
+    category: "finance",
+  },
 ];
 
 // export const PROJECTS: Project[] = [
@@ -101,6 +220,7 @@ export const SKILLS: Skill[] = [
 //     githubLink: "https://github.com/username/microservices-demo",
 //   },
 // ];
+
 export const PROJECTS: Project[] = [
   {
     id: "project1",
@@ -245,7 +365,7 @@ export const SKILL_CATEGORIES = [
   { id: "backend", name: "Backend", icon: Server },
   { id: "frontend", name: "Frontend", icon: LayoutDashboard },
   { id: "devops", name: "DevOps", icon: Code },
-  { id: "other", name: "Business", icon: Briefcase },
+  { id: "finance", name: "Business", icon: Briefcase },
 ];
 
 export const PROJECT_CATEGORIES = [
@@ -254,4 +374,31 @@ export const PROJECT_CATEGORIES = [
   { id: "backend", name: "Backend" },
   { id: "fullstack", name: "Full Stack" },
   { id: "business", name: "Business" },
+];
+
+export const mockPosts: MockBlogPost[] = [
+  {
+    id: 1,
+    title: "Building Scalable Microservices with Spring Boot",
+    content:
+      "Learn how to design and implement scalable microservices architecture using Spring Boot and best practices...",
+    image:
+      "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    author: "John Doe",
+    date: "2024-03-15",
+    readTime: "8 min read",
+    tags: ["Microservices", "Spring Boot", "Java"],
+  },
+  {
+    id: 2,
+    title: "Financial Technology: The Future of Banking",
+    content:
+      "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
+    image:
+      "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    author: "Jane Smith",
+    date: "2024-03-10",
+    readTime: "6 min read",
+    tags: ["FinTech", "Banking", "Technology"],
+  },
 ];

@@ -11,14 +11,14 @@
   --orange-600: #ea580c;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Animation utilities */
@@ -66,4 +66,12 @@ body {
 
 .text-shadow-lg {
   text-shadow: 3px 3px 6px rgba(96, 165, 250, 0.6); /* Tailwind's blue-400 */
+}
+
+.square-hero {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

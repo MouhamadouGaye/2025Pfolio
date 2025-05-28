@@ -1,4 +1,3 @@
-import React from "react";
 import { Github as GitHub, Linkedin, Mail, ArrowUp } from "lucide-react";
 
 const Footer = () => {
@@ -16,7 +15,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">
               <a href="#home" className="text-2xl font-bold">
-                <span className="text-blue-400">Dev</span>Portfolio
+                <span className="text-blue-400">IDev</span>MGaye
               </a>
               <p className="text-gray-400 mt-2 max-w-md">
                 Software developer with a passion for crafting smart and
@@ -27,7 +26,7 @@ const Footer = () => {
 
             <div className="flex space-x-6">
               <a
-                href="https://github.com"
+                href="https://github.com/mouhamadougaye"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
@@ -45,7 +44,7 @@ const Footer = () => {
                 <Linkedin size={24} />
               </a>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:mgaayee@gmail.com"
                 className="text-gray-400 hover:text-white transition-colors"
                 aria-label="Email Contact"
               >

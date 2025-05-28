@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useIntersectionObserver } from "../utils/hooks";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
+import Animation from "./Animation";
 
 const Contact = () => {
   const [name, setName] = useState("");
