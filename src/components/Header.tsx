@@ -62,18 +62,18 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           </span>
           aye
         </a>
-        {/* <a
+        <a
           href="https://2025-pfolio.vercel.app/ai.html"
           className={`${isDarkMode ? "text-white" : "text-blue-500"}`}
         >
           *my-ai
-        </a> */}
-        <a
+        </a>
+        {/* <a
           href="http://localhost:5173/ai.html"
           className={`${isDarkMode ? "text-white" : "text-blue-500"}`}
         >
           *my-ai
-        </a>
+        </a> */}
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
