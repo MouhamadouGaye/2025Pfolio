@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           aye
         </a>
         <a href="https://2025-pfolio.vercel.app/ai.html" className="text-white">
-          my-ai
+          *my-ai
         </a>
 
         {/* Desktop Navigation */}
