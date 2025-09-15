@@ -227,16 +227,27 @@
 
       .message-header {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        justify-items: start;
         gap: 6px;
         margin-bottom: 12px;
       }
       .message-header.right {
-        margin-left: 240px;
+        justify-content: flex-end; /* push items to the right */
+        text-align: right; /* align text inside to the right */
       }
-      .message-header.left {
+
+      .message-header.right .avatar {
+        order: 2; /* move avatar to the far right */
+      }
+
+      .message-header.right .message-info {
+        order: 1; /* keep text left of avatar */
+      }
+
+      /* .message-header.left {
         justify-content: flex-start;
-      }
+      } */
 
       .avatar {
         width: 40px;
@@ -304,7 +315,9 @@
       }
 
       .message-content.right {
-        margin-left: 240px;
+        margin-left: 140px;
+        background: rgba(0, 100, 0, 0.291);
+        margin-right: 52px;
       }
       .message-content.left {
         justify-content: flex-end;
@@ -582,7 +595,8 @@
   <body>
     <div class="neural-bg" id="neuralBg"></div>
 
-    <a href="https://2025-pfolio.vercel.app" class="back-button">❮❮❮ Back</a>
+    <!-- <a href="https://2025-pfolio.vercel.app" class="back-button">❮❮❮ Back</a> -->
+    <a href="http://localhost:5173" class="back-button">❮❮❮ Back</a>
 
     <div class="ai-container">
       <header class="ai-header">
@@ -764,7 +778,7 @@
                       sender == "user" ? "right" : "left"
                     } ">
                         <div class="avatar ${
-                          sender === "user" ? "user" : ""
+                          sender === "user" ? "user" : "ai"
                         }">${sender === "user" ? "👤" : "🤖"}</div>
                         <div class="message-info ">
                             <div class="sender-name" >${
