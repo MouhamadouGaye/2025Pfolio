@@ -715,7 +715,7 @@
 
         async displayWelcomeMessage() {
           const welcomeText =
-            "Hello! I'm your Neural AI Assistant. I can understand context, search the web, analyze data, solve problems, and engage in meaningful conversations. What would you like to explore today?";
+            "Hello! I'm training it but Soon, I'm your Neural AI Assistant. I can understand context, search the web, analyze data, solve problems, and engage in meaningful conversations. What would you like to explore today?";
           await this.typewriterEffect(
             document.getElementById("welcomeText"),
             welcomeText
@@ -790,7 +790,7 @@
                                 minute: "2-digit",
                               })}
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="message-content ${
                       sender == "user" ? "right" : "left"
@@ -806,7 +806,7 @@
           const thinkingDiv = document.createElement("div");
           thinkingDiv.className = "message";
           thinkingDiv.innerHTML = `
-             
+
                     <div class="message-content ai">
                         <div class="thinking-indicator">
                             <div class="neural-spinner"></div>
@@ -861,7 +861,7 @@
           // Add to context
           this.context.push({ role: "user", content: message });
 
-          // Analyze the message for intent and complexity
+          // Analyze the message for intent and complexityx
           const analysis = this.analyzeMessage(message);
 
           let response = { text: "", sources: [] };
@@ -930,6 +930,12 @@
               "tech",
               "internet",
               "code",
+              "java",
+              "python",
+              "javascript",
+              "postgres",
+              "sql",
+              "spring-boot",
             ],
             science: [
               "science",
@@ -947,8 +953,20 @@
               "economy",
               "finance",
               "money",
+              "currency",
+              "enterprise",
+              "salary",
+              "employee",
             ],
-            personal: ["help", "advice", "recommend", "suggest", "opinion"],
+            personal: [
+              "help",
+              "advice",
+              "recommend",
+              "suggest",
+              "opinion",
+              "lesson",
+              "need",
+            ],
             creative: ["write", "create", "design", "story", "poem", "art"],
           };
 
@@ -1175,54 +1193,52 @@
 
         async searchWeb(query) {
           const sources = [];
-
           try {
             // Wikipedia search
             const wikiData = await this.searchWikipedia(query);
             if (wikiData) sources.push(wikiData);
-
             // Dictionary search
             const dictData = await this.searchDictionary(query);
             if (dictData) sources.push(dictData);
-
             // Add more sources as needed
           } catch (error) {
             console.error("Web search error:", error);
           }
-
           return sources;
         }
 
         async searchWikipedia(query) {
           try {
             const keywords = this.extractKeywords(query);
-            const searchTerm = keywords[0] || query.split(" ")[0];
 
-            const response = await fetch(
-              `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
-                searchTerm
-              )}`
-            );
-            if (response.ok) {
-              const data = await response.json();
-              return {
-                title: `Wikipedia: ${data.title}`,
-                url:
-                  data.content_urls?.desktop?.page ||
-                  `https://en.wikipedia.org/wiki/${encodeURIComponent(
-                    searchTerm
-                  )}`,
-                content: data.extract || "",
-                confidence: "high",
-                type: "encyclopedia",
-              };
+            const searchTerm =
+              keywords.sort((a, b) => b.length - a.length)[0] || // Pick the longest keyword first ex: ["French", "Revolution", "history"] => Revolution
+              query.split(" ")[0];
+
+            for (const word of keywords) {
+              const response = await fetch(
+                `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+                  word
+                )}`
+              );
+              if (response.ok) {
+                const data = await response.json();
+                if (data.extract) {
+                  return {
+                    title: `Wikipedia: ${data.title}`,
+                    url: data.content_urls?.desktop?.page,
+                    content: data.extract,
+                    confidence: "high",
+                    type: "encyclopedia",
+                  };
+                }
+              }
             }
           } catch (error) {
             console.error("Wikipedia search failed:", error);
           }
           return null;
         }
-
         async searchDictionary(query) {
           try {
             const keywords = this.extractKeywords(query);
