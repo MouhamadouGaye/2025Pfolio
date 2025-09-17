@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           *my-ai
         </a>
         {/* <a
-          href="http://localhost:5173/ai.html"
+          href="http://localhost:5173/ai-agent-coded-by-mgaye.html"
           className={`${isDarkMode ? "text-white" : "text-blue-500"}`}
         >
           *my-ai

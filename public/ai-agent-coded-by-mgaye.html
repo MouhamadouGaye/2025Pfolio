@@ -730,8 +730,48 @@
           }
         }
 
+        // async processMessage() {
+        //   const message = this.aiInput.value.trim();
+        //   if (!message || this.isProcessing) return;
+
+        //   this.isProcessing = true;
+        //   this.sendBtn.disabled = true;
+
+        //   // Add user message
+        //   this.addMessage(message, "user");
+        //   this.aiInput.value = "";
+        //   this.autoResizeInput();
+
+        //   // Add thinking indicator
+        //   const thinkingElement = this.addThinkingIndicator();
+
+        //   await new Promise((r) => setTimeout(r, 2000)); // give it 300ms minimum
+
+        //   try {
+        //     // Process the message with AI intelligence
+        //     const response = await this.generateIntelligentResponse(message);
+
+        //     // Remove thinking indicator
+        //     thinkingElement.remove();
+
+        //     // Add AI response
+        //     await this.addAIMessage(response);
+        //   } catch (error) {
+        //     console.error("Error processing message:", error);
+        //     thinkingElement.remove();
+        //     await this.addAIMessage({
+        //       text: "I apologize, but I encountered an error processing your request. Please try again.",
+        //       sources: [],
+        //     });
+        //   }
+
+        //   this.isProcessing = false;
+        //   this.sendBtn.disabled = false;
+        //   this.aiInput.focus();
+        // }
+
         async processMessage() {
-          const message = this.aiInput.value.trim();
+          const message = this.aiInput.value.trim().toLowerCase();
           if (!message || this.isProcessing) return;
 
           this.isProcessing = true;
@@ -745,11 +785,19 @@
           // Add thinking indicator
           const thinkingElement = this.addThinkingIndicator();
 
-          await new Promise((r) => setTimeout(r, 2000)); // give it 300ms minimum
+          await new Promise((r) => setTimeout(r, 300)); // small pause for realism
 
           try {
-            // Process the message with AI intelligence
-            const response = await this.generateIntelligentResponse(message);
+            // First, check for greetings
+            const quickResponse = this.handleGreetings(message);
+            let response;
+
+            if (quickResponse) {
+              response = { text: quickResponse, sources: [] };
+            } else {
+              // Process the message with AI intelligence
+              response = await this.generateIntelligentResponse(message);
+            }
 
             // Remove thinking indicator
             thinkingElement.remove();
@@ -768,6 +816,45 @@
           this.isProcessing = false;
           this.sendBtn.disabled = false;
           this.aiInput.focus();
+        }
+
+        handleGreetings(message) {
+          const greetings = {
+            hi: "Hey! How’s it going?",
+            hello: "Hi there! How are you doing today?",
+            hey: "Hey! What’s up?",
+            yo: "Yo! How’s everything?",
+            sup: "Not much! What about you?",
+            "what's up": "All good here 👍 What’s up with you?",
+            "whats up": "All good here 👍 What’s up with you?",
+            "good morning": "Good morning! Got any plans for the day? ☀️",
+            "good afternoon": "Good afternoon! How’s your day going so far?",
+            "good evening": "Good evening! Been up to anything fun today?",
+            "good night": "Good night 🌙 Sleep well! Got plans for tomorrow?",
+            "how are you":
+              "I’m doing great, thanks for asking 😊 What about you?",
+            "how's it going": "Pretty good! How’s it going with you?",
+            "how r u": "I’m doing great, thanks! What are you up to?",
+            "how are ya": "I’m good! How are you doing?",
+            "how have you been":
+              "I’ve been doing well, thanks! What about you?",
+            "whats good": "All good here 🙌 What’s good with you?",
+            hiya: "Hiya! How are things with you?",
+            morning: "Morning! Got anything planned today?",
+            afternoon: "Good afternoon! What are you up to right now?",
+            evening: "Evening! How’s your day been?",
+            fine: "Awsome, What are you up to today",
+            "Im doing good": "Awsome, What are you up to today",
+          };
+
+          // Find a matching greeting
+          for (const key in greetings) {
+            if (message.includes(key)) {
+              return greetings[key];
+            }
+          }
+
+          return null; // Not a greeting
         }
 
         addMessage(text, sender) {
@@ -861,15 +948,30 @@
           // Add to context
           this.context.push({ role: "user", content: message });
 
-          // Analyze the message for intent and complexityx
+          // // Analyze the message for intent and complexityx
           const analysis = this.analyzeMessage(message);
 
           let response = { text: "", sources: [] };
+
+          // try {
+          //   // if (analysis.needsWebSearch) {
+          //   const webData = await this.searchWeb(message);
+          //   if (webData.length > 0) {
+          //     response = this.synthesizeWithWebData(message, webData, analysis);
+          //     console.log("This is the respponse: " + response);
+          //   }
+          //   // } else {
+          //   //   response = this.generateContextualResponse(message, analysis);
+          //   // }
+          // } catch {
+          //   response = this.generateContextualResponse(message, analysis);
+          // }
 
           if (analysis.needsWebSearch) {
             // Fetch real data from APIs
             const webData = await this.searchWeb(message);
             response = this.synthesizeWithWebData(message, webData, analysis);
+            console.log("This is the respponse: " + response.sources);
           } else {
             // Generate contextual response
             response = this.generateContextualResponse(message, analysis);
@@ -896,28 +998,91 @@
             sentiment: this.analyzeSentiment(lowerMessage),
           };
         }
-        // this is new
+        // // this is new
+        // needsWebSearch(message) {
+        //   const webSearchTriggers = [
+        //     "meaning",
+        //     "current",
+        //     "latest",
+        //     "recent",
+        //     "news",
+        //     "today",
+        //     "2024",
+        //     "2025",
+        //     "define",
+        //     "definition",
+        //     "what is",
+        //     "who is",
+        //     "where is",
+        //     "price",
+        //     "cost",
+        //     "weather",
+        //     "stock",
+        //     "market",
+        //     "could you",
+
+        //   ];
+        //   return webSearchTriggers.some((trigger) => message.includes(trigger));
+        // }
+
         needsWebSearch(message) {
+          const lower = message.toLowerCase().trim();
+
+          // 🔑 Strong triggers for factual lookup
           const webSearchTriggers = [
-            "current",
-            "latest",
-            "recent",
-            "news",
-            "today",
-            "2024",
-            "2025",
-            "define",
+            "meaning",
             "definition",
+            "define",
             "what is",
             "who is",
             "where is",
+            "tell me about",
+            "explain",
+            "history of",
+            "synonym",
+            "antonym",
+            "translation",
+            "example of",
+            "difference between",
+
+            // 🔥 Real-time or external data
+            "current",
+            "latest",
+            "recent",
+            "today",
+            "now",
+            "news",
+            "weather",
+            "forecast",
             "price",
             "cost",
-            "weather",
             "stock",
             "market",
+            "exchange rate",
+            "value of",
+            "trend",
+            "update",
+            "2024",
+            "2025",
           ];
-          return webSearchTriggers.some((trigger) => message.includes(trigger));
+
+          // If any trigger phrase is inside the message → true
+          if (webSearchTriggers.some((trigger) => lower.includes(trigger))) {
+            return true;
+          }
+
+          // 🔎 Pattern-based detection: questions
+          if (/^(what|who|where|when|why|how)\b/.test(lower)) {
+            return true;
+          }
+
+          // Numbers/dates often mean factual lookup
+          if (/\b\d{4}\b/.test(lower)) {
+            return true;
+          }
+
+          // Otherwise → default to false
+          return false;
         }
 
         categorizeMessage(message) {
@@ -1364,7 +1529,7 @@
 
             // Add contextual analysis
             if (analysis.category === "technology") {
-              text += ` From a technological perspective, this represents current developments in the field.`;
+              text += `From a technological perspective, this represents current developments in the field.`;
             } else if (analysis.category === "science") {
               text += ` The scientific consensus on this topic is based on peer-reviewed research and evidence.`;
             }
@@ -1448,7 +1613,7 @@
         }
 
         generateFallbackResponse(query, analysis) {
-          return `I've analyzed your question about "${query}" and while I don't have access to current web data on this specific topic, I can provide insights based on my training. This appears to be a ${analysis.complexity}-complexity ${analysis.category} question. Would you like me to break down the key concepts or explore related areas that might be helpful?`;
+          return `I've analyzed your question about ${query} and while I don't have access to current web data on this specific topic, I can provide insights based on my training. This appears to be a ${analysis.complexity}-complexity ${analysis.category} question. Would you like me to break down the key concepts or explore related areas that might be helpful?`;
         }
 
         formatSources(sources) {
