@@ -660,6 +660,9 @@
           this.setupEventListeners();
           this.displayWelcomeMessage();
           this.updateTime();
+
+          this.greetings = null;
+          this.loadGreetings();
         }
 
         initializeNeuralBackground() {
@@ -818,43 +821,69 @@
           this.aiInput.focus();
         }
 
-        handleGreetings(message) {
-          const greetings = {
-            hi: "Hey! How’s it going?",
-            hello: "Hi there! How are you doing today?",
-            hey: "Hey! What’s up?",
-            yo: "Yo! How’s everything?",
-            sup: "Not much! What about you?",
-            "what's up": "All good here 👍 What’s up with you?",
-            "whats up": "All good here 👍 What’s up with you?",
-            "good morning": "Good morning! Got any plans for the day? ☀️",
-            "good afternoon": "Good afternoon! How’s your day going so far?",
-            "good evening": "Good evening! Been up to anything fun today?",
-            "good night": "Good night 🌙 Sleep well! Got plans for tomorrow?",
-            "how are you":
-              "I’m doing great, thanks for asking 😊 What about you?",
-            "how's it going": "Pretty good! How’s it going with you?",
-            "how r u": "I’m doing great, thanks! What are you up to?",
-            "how are ya": "I’m good! How are you doing?",
-            "how have you been":
-              "I’ve been doing well, thanks! What about you?",
-            "whats good": "All good here 🙌 What’s good with you?",
-            hiya: "Hiya! How are things with you?",
-            morning: "Morning! Got anything planned today?",
-            afternoon: "Good afternoon! What are you up to right now?",
-            evening: "Evening! How’s your day been?",
-            fine: "Awsome, What are you up to today",
-            "Im doing good": "Awsome, What are you up to today",
-          };
+        // handleGreetings(message) {
+        //   const greetings = {
+        //     hi: "Hey! How’s it going?",
+        //     hello: "Hi there! How are you doing today?",
+        //     hey: "Hey! What’s up?",
+        //     yo: "Yo! How’s everything?",
+        //     sup: "Not much! What about you?",
+        //     "what's up": "All good here 👍 What’s up with you?",
+        //     "whats up": "All good here 👍 What’s up with you?",
+        //     "good morning": "Good morning! Got any plans for the day? ☀️",
+        //     "good afternoon": "Good afternoon! How’s your day going so far?",
+        //     "good evening": "Good evening! Been up to anything fun today?",
+        //     "good night": "Good night 🌙 Sleep well! Got plans for tomorrow?",
+        //     "how are you":
+        //       "I’m doing great, thanks for asking 😊 What about you?",
+        //     "how's it going": "Pretty good! How’s it going with you?",
+        //     "how r u": "I’m doing great, thanks! What are you up to?",
+        //     "how are ya": "I’m good! How are you doing?",
+        //     "how have you been":
+        //       "I’ve been doing well, thanks! What about you?",
+        //     "whats good": "All good here 🙌 What’s good with you?",
+        //     hiya: "Hiya! How are things with you?",
+        //     morning: "Morning! Got anything planned today?",
+        //     afternoon: "Good afternoon! What are you up to right now?",
+        //     evening: "Evening! How’s your day been?",
+        //     fine: "Awsome, What are you up to today?",
+        //     thanks: "Great! How can I help you today?",
+        //     "Im doing good": "Awsome, What are you up to today?",
+        //     "Im doing great": "Awsome, What are you up to today?",
+        //   };
 
-          // Find a matching greeting
-          for (const key in greetings) {
-            if (message.includes(key)) {
-              return greetings[key];
+        //   // Find a matching greeting
+        //   for (const key in greetings) {
+        //     if (message.includes(key)) {
+        //       return greetings[key];
+        //     }
+        //   }
+
+        //   return null; // Not a greeting
+        // }
+
+        async loadGreetings() {
+          try {
+            const res = await fetch("/greetings.json");
+            this.greetings = await res.json();
+          } catch (err) {
+            console.error("Failed to load greetings", err);
+            this.greetings = {};
+          }
+        }
+
+        handleGreetings(message) {
+          // fetch from json
+          if (!this.greetings) return null;
+          const lowerMessage = message.toLowerCase();
+
+          for (const key in this.greetings) {
+            if (lowerMessage.includes(key)) {
+              const responses = this.greetings[key];
+              return responses[Math.floor(Math.random() * responses.length)];
             }
           }
-
-          return null; // Not a greeting
+          return null;
         }
 
         addMessage(text, sender) {
@@ -952,20 +981,6 @@
           const analysis = this.analyzeMessage(message);
 
           let response = { text: "", sources: [] };
-
-          // try {
-          //   // if (analysis.needsWebSearch) {
-          //   const webData = await this.searchWeb(message);
-          //   if (webData.length > 0) {
-          //     response = this.synthesizeWithWebData(message, webData, analysis);
-          //     console.log("This is the respponse: " + response);
-          //   }
-          //   // } else {
-          //   //   response = this.generateContextualResponse(message, analysis);
-          //   // }
-          // } catch {
-          //   response = this.generateContextualResponse(message, analysis);
-          // }
 
           if (analysis.needsWebSearch) {
             // Fetch real data from APIs

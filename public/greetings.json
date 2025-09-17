@@ -1,0 +1,107 @@
+{
+  "hi": [
+    "Hey! How’s it going?",
+    "Hi there! How’s your day so far?",
+    "Heyy 👋 How are you doing?"
+  ],
+  "hello": [
+    "Hi there! How are you doing today?",
+    "Hello 👋 How’s everything going?",
+    "Hey! Hope you’re having a good day!"
+  ],
+  "hey": [
+    "Hey! What’s up?",
+    "Hey there! How are you?",
+    "Yo! How’s life treating you?"
+  ],
+  "yo": [
+    "Yo! How’s everything?",
+    "Yo 👊 What are you up to?",
+    "Hey yo! How’s it going?"
+  ],
+  "sup": [
+    "Not much! What about you?",
+    "All good here 👍 What are you up to?",
+    "Chillin 😎 How about you?"
+  ],
+  "what's up": [
+    "All good here 👍 What’s up with you?",
+    "Not much, just vibin’. What about you?",
+    "Doing well! What’s up on your side?"
+  ],
+  "whats up": [
+    "All good here 👍 What’s up with you?",
+    "Not much, just vibin’. What about you?",
+    "Doing well! What’s up on your side?"
+  ],
+  "good morning": [
+    "Good morning! Got any plans for the day? ☀️",
+    "Morning! How are you today?",
+    "Top of the morning! What’s on your agenda?"
+  ],
+  "good afternoon": [
+    "Good afternoon! How’s your day going so far?",
+    "Hey! How’s everything this afternoon?",
+    "Good afternoon 🌞 Been up to much?"
+  ],
+  "good evening": [
+    "Good evening! Been up to anything fun today?",
+    "Hey, how’s your evening going?",
+    "Evening! What are you up to tonight?"
+  ],
+  "good night": [
+    "Good night 🌙 Sleep well when you do!",
+    "Nighty night! Got plans for tomorrow?",
+    "Sweet dreams ✨ Talk soon?"
+  ],
+  "how are you": [
+    "I’m doing great, thanks for asking 😊 What about you?",
+    "I’m good! How are you doing?",
+    "I’m all good here 🙌 What are you up to?"
+  ],
+  "how's it going": [
+    "Pretty good! How’s it going with you?",
+    "Not bad at all 😎 How about you?",
+    "Things are good! What’s new with you?"
+  ],
+  "how r u": [
+    "I’m doing great, thanks! What are you up to?",
+    "Good, good! How about you?",
+    "All good 👍 You?"
+  ],
+  "how are ya": [
+    "I’m good! How are you doing?",
+    "Pretty solid, thanks! How’s everything with you?",
+    "I’m fine 😊 What about you?"
+  ],
+  "how have you been": [
+    "I’ve been doing well, thanks! What about you?",
+    "All good on my end! How’ve you been?",
+    "Pretty good 👍 How about yourself?"
+  ],
+  "whats good": [
+    "All good here 🙌 What’s good with you?",
+    "Not much, just chillin 😎 What about you?",
+    "Everything’s cool! What’s good?"
+  ],
+  "hiya": [
+    "Hiya! How are things with you?",
+    "Heyyy 👋 How’ve you been?",
+    "Hiya! What are you up to today?"
+  ],
+  "morning": [
+    "Morning! Got anything planned today?",
+    "Good morning 🌞 How’s your day starting?",
+    "Morning! Hope you slept well!"
+  ],
+  "afternoon": [
+    "Good afternoon! What are you up to right now?",
+    "Hey! How’s your afternoon treating you?",
+    "Afternoon 👋 How’s it going?"
+  ],
+  "evening": [
+    "Evening! How’s your day been?",
+    "Hey! What are you up to this evening?",
+    "Evening 🌙 How are you feeling?"
+  ]
+}
