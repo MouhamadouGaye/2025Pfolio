@@ -774,30 +774,30 @@
           const messageDiv = document.createElement("div");
           messageDiv.className = "message";
           messageDiv.innerHTML = `
-                    <div class="message-header ${
-                      sender == "user" ? "right" : "left"
-                    } ">
-                        <div class="avatar ${
-                          sender === "user" ? "user" : "ai"
-                        }">${sender === "user" ? "👤" : "🤖"}</div>
-                        <div class="message-info ">
-                            <div class="sender-name" >${
-                              sender === "user" ? "You" : "Neural AI"
-                            }</div>
-                            <div class="message-time">
-                              ${new Date().toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="message-content ${
-                      sender == "user" ? "right" : "left"
-                    }">
-                        <div>${this.escapeHtml(text)}</div>
-                    </div>
-                `;
+                      <div class="message-header ${
+                        sender == "user" ? "right" : "left"
+                      } ">
+                          <div class="avatar ${
+                            sender === "user" ? "user" : "ai"
+                          }">${sender === "user" ? "👤" : "🤖"}</div>
+                          <div class="message-info ">
+                              <div class="sender-name" >${
+                                sender === "user" ? "You" : "Neural AI"
+                              }</div>
+                              <div class="message-time">
+                                ${new Date().toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="message-content ${
+                        sender == "user" ? "right" : "left"
+                      }">
+                          <div>${this.escapeHtml(text)}</div>
+                      </div>
+                  `;
           this.messagesContainer.appendChild(messageDiv);
           this.scrollToBottom();
         }
@@ -807,13 +807,13 @@
           thinkingDiv.className = "message";
           thinkingDiv.innerHTML = `
 
-                    <div class="message-content ai">
-                        <div class="thinking-indicator">
-                            <div class="neural-spinner"></div>
-                            <span>Processing your request through MG' neural networks...</span>
-                        </div>
-                    </div>
-                `;
+                      <div class="message-content ai">
+                          <div class="thinking-indicator">
+                              <div class="neural-spinner"></div>
+                              <span>Processing your request through MG' neural networks...</span>
+                          </div>
+                      </div>
+                  `;
           this.messagesContainer.appendChild(thinkingDiv);
           this.scrollToBottom();
           return thinkingDiv;
@@ -824,17 +824,17 @@
           messageDiv.className = "message";
 
           const messageHeader = `
-                    <div class="message-header">
-                        <div class="avatar ai">🤖</div>
-                        <div class="message-info">
-                            <div class="sender-name">Neural AI</div>
-                            <div class="message-time">${new Date().toLocaleTimeString(
-                              [],
-                              { hour: "2-digit", minute: "2-digit" }
-                            )}</div>
-                        </div>
-                    </div>
-                `;
+                      <div class="message-header">
+                          <div class="avatar ai">🤖</div>
+                          <div class="message-info">
+                              <div class="sender-name">Neural AI</div>
+                              <div class="message-time">${new Date().toLocaleTimeString(
+                                [],
+                                { hour: "2-digit", minute: "2-digit" }
+                              )}</div>
+                          </div>
+                      </div>
+                  `;
 
           let messageContent =
             '<div class="message-content ai"><div class="typewriter-container">';
@@ -1239,42 +1239,113 @@
           }
           return null;
         }
+        // async searchDictionary(query) {
+        //   try {
+        //     const keywords = this.extractKeywords(query);
+        //     const word =
+        //       keywords.find((w) => w.length > 3) ||
+        //       query.split(" ").find((w) => w.length > 3);
+
+        //     if (word) {
+        //       const response = await fetch(
+        //         `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(
+        //           word
+        //         )}`
+        //       );
+        //       if (response.ok) {
+        //         const data = await response.json();
+        //         if (data && data.length > 0) {
+        //           const entry = data[0];
+        //           const definition =
+        //             entry.meanings?.[0]?.definitions?.[0]?.definition || "";
+
+        //           return {
+        //             title: `Dictionary: ${entry.word}`,
+        //             url: `https://www.merriam-webster.com/dictionary/${encodeURIComponent(
+        //               word
+        //             )}`,
+        //             content: definition,
+        //             confidence: "high",
+        //             type: "dictionary",
+        //           };
+        //         }
+        //       }
+        //     }
+        //   } catch (error) {
+        //     console.error("Dictionary search failed:", error);
+        //   }
+        //   return null;
+        // }
+
         async searchDictionary(query) {
           try {
-            const keywords = this.extractKeywords(query);
-            const word =
-              keywords.find((w) => w.length > 3) ||
-              query.split(" ").find((w) => w.length > 3);
+            const words = query.split(" ").toLowerCase();
 
-            if (word) {
-              const response = await fetch(
-                `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(
-                  word
-                )}`
-              );
-              if (response.ok) {
-                const data = await response.json();
-                if (data && data.length > 0) {
-                  const entry = data[0];
-                  const definition =
-                    entry.meanings?.[0]?.definitions?.[0]?.definition || "";
+            // Scoring function: longer words & non-stopwords score higher
+            const stopwords = [
+              "let's",
+              "learn",
+              "a",
+              "the",
+              "new",
+              "and",
+              "to",
+              "is",
+              "definition",
+              "def",
+            ];
+            const scoredWords = words.map((w) => {
+              let score = w.length; // base score: longer words are more meaningful
+              if (stopwords.includes(w)) {
+                score -= 10; // penalize common/boring words
+              }
+              return { word: w, score };
+            });
+            // Pick the best candidate
+            const bestWord = scoredWords.sort((a, b) => b.score - a.score)[0]
+              .word;
 
-                  return {
-                    title: `Dictionary: ${entry.word}`,
-                    url: `https://www.merriam-webster.com/dictionary/${encodeURIComponent(
-                      word
-                    )}`,
-                    content: definition,
-                    confidence: "high",
-                    type: "dictionary",
-                  };
-                }
+            // Fetch dictionary data
+            const response = await fetch(
+              `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(
+                bestWord
+              )}`
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data && data.length > 0) {
+                const entry = data[0];
+                const definition =
+                  entry.meanings?.[0]?.definitions?.[0]?.definition || "";
+
+                return {
+                  title: `Dictionary: ${entry.word}`,
+                  url: `https://www.merriam-webster.com/dictionary/${encodeURIComponent(
+                    bestWord
+                  )}`,
+                  content: definition,
+                  confidence: "high",
+                  type: "dictionary",
+                };
               }
             }
           } catch (error) {
             console.error("Dictionary search failed:", error);
           }
           return null;
+        }
+
+        async fetchDefinition(query) {
+          const response = await fetch(
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
+          );
+          if (!response.ok) throw new Error("Word not found");
+          const data = await response.json();
+          return data[0].meanings.map((m) => ({
+            partOfSpeech: m.partOfSpeech,
+            definitions: m.definitions.map((d) => d.definition),
+          }));
         }
 
         synthesizeWithWebData(query, webData, analysis) {
@@ -1391,21 +1462,23 @@
             const confidenceClass = `confidence-${source.confidence}`;
 
             html += `
-                        <div class="source-item">
-                            <div class="source-icon">${icon}</div>
-                            <div class="source-info">
-                                <div class="source-title">${source.title}</div>
-                                <a href="${
-                                  source.url
-                                }" target="_blank" class="source-url">${this.truncateUrl(
+                          <div class="source-item">
+                              <div class="source-icon">${icon}</div>
+                              <div class="source-info">
+                                  <div class="source-title">${
+                                    source.title
+                                  }</div>
+                                  <a href="${
+                                    source.url
+                                  }" target="_blank" class="source-url">${this.truncateUrl(
               source.url
             )}</a>
-                            </div>
-                            <div class="confidence-badge ${confidenceClass}">${
+                              </div>
+                              <div class="confidence-badge ${confidenceClass}">${
               source.confidence
             }</div>
-                        </div>
-                    `;
+                          </div>
+                      `;
           });
 
           html += "</div>";
