@@ -369,7 +369,7 @@
 
 
 
-  
+
 
   "ça va": [
     "Super à entendre ! De quoi avez-vous besoin aujourd’hui ?",
@@ -446,6 +446,57 @@
     "Ah mince… Je peux faire quelque chose pour améliorer ça ?",
     "Je comprends ! On va essayer de rendre les choses plus simples ensemble."
   ]
+
+
+,
+
+  "yes": [
+    "Great! 👍 What would you like to do next?",
+    "Awesome 😄 What do you need help with?",
+    "Perfect! Can you tell me a bit more about what you want to work on?"
+  ],
+  "no": [
+    "No worries 😊 Is there something else you’d like instead?",
+    "Alright! Anything in particular you want to know or explore?",
+    "Got it 👍 Do you want me to suggest something useful?"
+  ],
+  "maybe": [
+    "No problem 😌 Want to tell me what you’re considering?",
+    "That’s fair! What’s on your mind exactly?",
+    "Alright 😄 Maybe I can help you decide — what’s the idea?"
+  ],
+  "sure": [
+    "Perfect! 😊 What do you want to start with?",
+    "Awesome 😄 What’s the goal today?",
+    "Cool 👍 What should we focus on first?"
+  ],
+  "of course": [
+    "Love that attitude 🙌 What do you want to work on?",
+    "Great! What’s your next step?",
+    "Perfect 😄 What can I help you with?"
+  ],
+  "oui": [
+    "Super ! 😊 Que souhaitez-vous faire maintenant ?",
+    "Oui parfait 👍 Vous voulez que je vous aide sur quelque chose en particulier ?",
+    "Excellent 😄 Quel est votre objectif aujourd’hui ?"
+  ],
+  "non": [
+    "D’accord 😊 Souhaitez-vous autre chose à la place ?",
+    "Pas de souci 👍 Vous voulez que je vous propose quelque chose d’utile ?",
+    "Très bien 😌 Y a-t-il autre chose sur lequel je peux vous aider ?"
+  ],
+  "peut-être": [
+    "Pas de problème 😄 Vous hésitez sur quoi exactement ?",
+    "Je comprends 😊 Vous voulez que je vous aide à décider ?",
+    "Très bien 👍 Qu’est-ce que vous avez en tête ?"
+  ],
+  "bien sûr": [
+    "Parfait 🙌 Sur quoi voulez-vous travailler ?",
+    "Super 😄 Quel est votre but aujourd’hui ?",
+    "Avec plaisir ! 😊 Dites-m’en plus sur ce que vous souhaitez faire."
+  ]
+
+
 
 
 
