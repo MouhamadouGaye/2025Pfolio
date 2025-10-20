@@ -103,5 +103,350 @@
     "Evening! How’s your day been?",
     "Hey! What are you up to this evening?",
     "Evening 🌙 How are you feeling?"
+  ],
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  "i'm good": [
+    "Awesome to hear! 😊 What are you working on today?",
+    "Glad to hear that! Anything specific you need help with?",
+    "Great! What brings you here today — looking for something in particular?"
+  ],
+  "i'm fine": [
+    "Good to know! 👍 What can I do for you today?",
+    "Happy to hear that! Are you looking for something specific?",
+    "Nice! Do you want to go over any ideas or projects?"
+  ],
+  "i'm great": [
+    "That’s amazing! 🙌 What would you like to work on today?",
+    "Love that energy! 💪 Need help with anything?",
+    "Fantastic 😎 What can I help you with today?"
+  ],
+  "good": [
+    "Nice! 😄 What are you up to today?",
+    "Good to hear! Need help with anything at the moment?",
+    "Cool — are you working on something interesting?"
+  ],
+  "pretty good": [
+    "That’s great! 😎 Anything you’d like me to help with?",
+    "Awesome! What are you focusing on today?",
+    "Glad to hear that — what can I do for you?"
+  ],
+  "not bad": [
+    "Hey, not bad’s still good 😁 What’s on your mind?",
+    "Cool — anything I can give you a hand with?",
+    "Nice! Working on something specific today?"
+  ],
+  "fine": [
+    "Good to know 👍 What do you need help with today?",
+    "Alright! Do you want to dive into something particular?",
+    "Got it! Anything I can help you figure out?"
+  ],
+  "okay": [
+    "Okay’s a good start 😌 What’s your goal today?",
+    "Alright! What would you like to work on?",
+    "Okay cool — want to tell me what you’re focusing on?"
+  ],
+  "could be better": [
+    "I hear you 😅 Maybe I can help make it a bit better — what’s going on?",
+    "Understandable! Want to talk about what you’re working on?",
+    "No worries — let’s see if I can make things easier for you."
+  ],
+  "not great": [
+    "Ah, sorry to hear that 😔 Want me to help with something?",
+    "I get it — maybe we can turn things around. What’s happening?",
+    "Hmm, that’s tough. Can I do something to help you out?"
+  ],
+  "awesome": [
+    "Awesome indeed! 🔥 What are you up to today?",
+    "Love that energy 😄 What would you like to do next?",
+    "Perfect! Anything you’d like my help with?"
+  ],
+  "amazing": [
+    "That’s fantastic 😎 What brings you here today?",
+    "Great to hear! What would you like to work on?",
+    "Nicee 😁 Anything I can help you with?"
+  ],
+  "tired": [
+    "Long day, huh? 😴 Want me to make things easier for you?",
+    "I get that 😌 Need a quick hand with something before you rest?",
+    "Understandable! Want to go over something light today?"
+  ],
+  "busy": [
+    "Totally get that 💼 Want me to help save you some time?",
+    "Busy days happen! Anything quick I can help you with?",
+    "Gotcha 😅 Should I keep it short and to the point?"
+  ],
+  "i'm okay": [
+    "Good to know! What would you like to focus on today?",
+    "Alright! Do you want to work on anything specific?",
+    "Cool — anything you’d like my help with?"
+  ],
+  "i'm doing well": [
+    "Glad to hear it 😊 What can I help you with today?",
+    "Perfect! What are you working on right now?",
+    "That’s great 🙌 Want to go over something together?"
+  ],
+  "all good": [
+    "All good, awesome 🙌 What can I do for you today?",
+    "Nice to hear that 😎 Anything you’d like to discuss?",
+    "Sweet! What are you focusing on today?"
+  ],
+  "can't complain": [
+    "Haha that’s the spirit 😄 What’s on your plate today?",
+    "Love that answer 😂 Anything I can help with?",
+    "That’s fair! What are you working on right now?"
+  ],
+  "alright": [
+    "Alright! What are you up to today?",
+    "Cool! Anything you’d like to dive into?",
+    "Good to hear! What can I help you with?"
+  ],
+  "same old": [
+    "Haha, I get that 😅 Want to shake things up with something new?",
+    "The usual, huh? Maybe I can help you with a new idea?",
+    "Totally get it! Anything I can help move forward today?"
+  ],
+  "meh": [
+    "I feel that 😌 Want me to help make your day a bit better?",
+    "Understandable. Want to talk through something on your mind?",
+    "No worries — maybe working on a small goal will help?"
+  ],
+  "not too bad": [
+    "Good to hear 😄 Anything you’d like to work on today?",
+    "Nice! Want to tell me what you’re focusing on?",
+    "Cool! What brings you here today?"
+  ],
+  "doing good": [
+    "Great! 🙌 What can I do for you today?",
+    "Awesome 😎 Want to get started on something?",
+    "Perfect — anything specific you’d like help with?"
+  ],
+  "doing fine": [
+    "Glad to hear that 😊 What are you working on?",
+    "Good stuff 👍 Want me to help with something?",
+    "Alright! Anything on your to-do list I can assist with?"
+  ],
+  "i'm well": [
+    "Nice! 😊 What would you like to work on today?",
+    "Glad to hear it 🙌 Anything I can help you with?",
+    "Perfect — what’s your main focus right now?"
+  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "ça se passe ": [
+    "Ça va bien merci 😊 Et vous ? Sur quoi travaillez-vous en ce moment ?",
+    "Tout roule 😎 Et toi ? Tu veux que je t’aide à avancer sur quelque chose ?",
+    "Très bien 👍 Et vous ? Que puis-je faire pour vous aujourd’hui ?"
+  ],
+
+  "salut": [
+    "Salut ! Comment ça va ?",
+    "Coucou 👋 Ça roule ?",
+    "Hey ! Comment tu vas aujourd’hui ?"
+  ],
+  "bonjour": [
+    "Bonjour ! Comment vas-tu ?",
+    "Salut 👋 Tout se passe bien ?",
+    "Hello ! J’espère que ta journée se passe bien !"
+  ],
+  "hey ça va": [
+    "Hey ! Quoi de neuf ?",
+    "Salut ! Comment tu vas ?",
+    "Yo ! Tout va bien ?"
+  ],
+  "yo, ça va": [
+    "Yo ! Ça va ou quoi ?",
+    "Yo 👊 Qu’est-ce que tu racontes ?",
+    "Hey yo ! Comment ça va ?"
+  ],
+  "bien et vous?": [
+    "Tout va bien 👍 Et toi ?",
+    "Tranquille 😎 Et toi, quoi de neuf ?",
+    "Ça roule ! Et toi, comment ça va ?"
+  ],
+  "quoi de neuf": [
+    "Pas grand-chose ! Et toi ?",
+    "Rien de spécial, je me pose 😎 Et toi ?",
+    "Tout roule ! Et toi ?"
+  ],
+  "bonjour matin": [
+    "Bonjour ! Bien dormi ? ☀️",
+    "Salut ! Prêt·e pour la journée ?",
+    "Coucou ! Quoi de prévu ce matin ?"
+  ],
+  "bonjour après-midi": [
+    "Bon après-midi ! Comment se passe ta journée ?",
+    "Salut ! Qu’est-ce que tu fais de beau cet aprèm ?",
+    "Bon après-midi 🌞 Tout va bien ?"
+  ],
+  "bonsoir": [
+    "Bonsoir ! Ta journée s’est bien passée ?",
+    "Salut ! Comment se passe ta soirée ?",
+    "Bonsoir 🌙 Tu fais quoi ce soir ?"
+  ],
+  "bonne nuit": [
+    "Bonne nuit 🌙 Dors bien !",
+    "Fais de beaux rêves ✨",
+    "Bonne nuit ! À demain 👋"
+  ],
+  "comment ça va": [
+    "Je vais bien, merci 😊 Et toi ?",
+    "Ça va super ! Et toi, comment tu te sens ?",
+    "Tranquille 🙌 Et toi ?"
+  ],
+  "comment vas-tu": [
+    "Je vais bien ! Et toi ?",
+    "Pas mal du tout 😎 Et toi, comment vas-tu ?",
+    "Tout roule ! Et toi ?"
+  ],
+  "comment tu vas": [
+    "Ça va bien, merci ! Et toi ?",
+    "Super 👍 Et toi, comment tu vas ?",
+    "Plutôt bien 😊 Et toi ?"
+  ],
+  "comment tu te sens": [
+    "Je me sens bien, merci 😊 Et toi ?",
+    "Nickel ! Et toi, comment tu te sens aujourd’hui ?",
+    "Plutôt en forme 💪 Et toi ?"
+  ],
+  "quoi de beau": [
+    "Pas grand-chose, tranquille 😌 Et toi ?",
+    "Rien de fou, je me détends 😎 Et toi ?",
+    "Tout va bien ! Et toi, quoi de beau ?"
+  ],
+  "coucou": [
+    "Coucou ! Comment ça va ?",
+    "Coucou 👋 Quoi de neuf ?",
+    "Hey coucou ! Comment tu te sens aujourd’hui ?"
+  ],
+  "matin": [
+    "Salut ! Bien réveillé·e ? ☀️",
+    "Bonjour 🌞 Bien dormi ?",
+    "Coucou ! Prêt·e pour la journée ?"
+  ],
+  "après-midi": [
+    "Bon après-midi ! Tu fais quoi de beau ?",
+    "Salut ! Comment se passe ton aprèm ?",
+    "Hey 👋 Tout se passe bien cet après-midi ?"
+  ],
+  "soirée": [
+    "Bonne soirée ! Tu fais quoi ce soir ?",
+    "Hey ! Comment se passe ta soirée ?",
+    "Bonne soirée 🌙 Détends-toi bien !"
+  ],
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  "ça va": [
+    "Super à entendre ! De quoi avez-vous besoin aujourd’hui ?",
+    "Content que tout aille bien 😊 Comment puis-je vous aider ?",
+    "Parfait ! Vous travaillez sur quelque chose en particulier ?"
+  ],
+  "je vais bien": [
+    "Heureux de l’apprendre ! En quoi puis-je vous assister aujourd’hui ?",
+    "Super ! Quel est votre objectif ou votre besoin du moment ?",
+    "Génial 👍 Vous cherchez un accompagnement sur un sujet précis ?"
+  ],
+  "pas mal": [
+    "C’est déjà ça 😄 Que puis-je faire pour vous ?",
+    "Pas mal, c’est bien ! Vous souhaitez qu’on parle d’un projet ou d’une idée ?",
+    "Cool 😎 Vous avez un objectif ou un besoin particulier aujourd’hui ?"
+  ],
+  "tranquille": [
+    "Tranquille, parfait 😌 Vous voulez avancer sur quelque chose ?",
+    "Cool ! Je peux vous aider sur un point précis ?",
+    "Super, restons dans cette énergie ! Sur quoi voulez-vous qu’on travaille ?"
+  ],
+  "fatigué": [
+    "Oh, j’espère que vous pourrez vous reposer un peu 😌 En attendant, je peux vous aider à avancer sans stress ?",
+    "Dure journée hein ? 😅 Vous voulez que je vous facilite quelque chose ?",
+    "Je comprends ! Voulez-vous qu’on fasse simple et rapide aujourd’hui ?"
+  ],
+  "bien et toi": [
+    "Je vais très bien, merci 😊 Et dites-moi, sur quoi souhaitez-vous qu’on travaille ?",
+    "Tout va bien aussi, merci ! Vous avez besoin d’aide pour un projet ?",
+    "Content de l’entendre ! Comment puis-je vous être utile ?"
+  ],
+  "super": [
+    "Top ! 😎 Vous voulez qu’on démarre quelque chose ensemble ?",
+    "Génial 🎯 Que puis-je faire pour vous aujourd’hui ?",
+    "Excellent ! Vous cherchez un conseil ou un accompagnement particulier ?"
+  ],
+  "nickel": [
+    "Nickel 👌 Ravi de l’entendre ! En quoi puis-je vous aider ?",
+    "Impeccable ! Vous avez un besoin spécifique aujourd’hui ?",
+    "Parfait 😁 Sur quoi souhaitez-vous que je vous accompagne ?"
+  ],
+  "moyen": [
+    "Ah mince 😕 Vous voulez qu’on voie ensemble comment améliorer ça ?",
+    "Je comprends. Parlez-moi un peu de ce que vous cherchez, je peux peut-être aider ?",
+    "Pas top alors… Que puis-je faire pour rendre votre journée un peu meilleure ?"
+  ],
+  "pas trop": [
+    "D’accord 😔 Vous voulez que je vous donne un coup de main sur quelque chose ?",
+    "Je vois… Parfois parler d’un projet aide à se remotiver 😌 Vous voulez qu’on en discute ?",
+    "Pas de souci, on va y aller tranquille. De quoi avez-vous besoin aujourd’hui ?"
+  ],
+  "bof": [
+    "Je comprends 😌 Si je peux aider à arranger la journée, dites-moi ce qu’il vous faut.",
+    "Bof, ça arrive à tout le monde 😅 Vous voulez qu’on voie un sujet sympa pour changer d’air ?",
+    "Ok 😔 Je peux vous aider sur un point pour vous simplifier les choses ?"
+  ],
+  "ça va bien": [
+    "Parfait 😊 En quoi puis-je vous être utile aujourd’hui ?",
+    "Super à entendre ! Vous cherchez un service ou un conseil particulier ?",
+    "Génial 🙌 Je peux vous aider à avancer sur un projet ?"
+  ],
+  "comme ci comme ça": [
+    "Je vois 😌 Peut-être qu’un petit coup de main pourrait aider ?",
+    "Pas évident 😅 Dites-moi ce dont vous avez besoin, on va arranger ça.",
+    "Je comprends ! Vous voulez qu’on fasse un point rapide ensemble ?"
+  ],
+  "tout va bien": [
+    "Excellent 😁 De quoi avez-vous besoin aujourd’hui ?",
+    "Super nouvelle ! Vous travaillez sur quelque chose de précis ?",
+    "Parfait 👌 Comment puis-je vous aider à avancer ?"
+  ],
+  "ça pourrait aller mieux": [
+    "D’accord 😔 Parlez-moi un peu de ce qui ne va pas, je peux peut-être aider.",
+    "Ah mince… Je peux faire quelque chose pour améliorer ça ?",
+    "Je comprends ! On va essayer de rendre les choses plus simples ensemble."
   ]
+
+
+
 }
