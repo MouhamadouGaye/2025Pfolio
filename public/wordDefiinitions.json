@@ -1,0 +1,97 @@
+{
+  "What does [word] mean?": [
+    "The word '[word]' means [definition]. Would you like an example sentence?",
+    "It refers to [definition]. Do you want to see how it's used in context?",
+    "‘[word]’ is defined as [definition]. Should I give you a synonym as well?"
+  ],
+  "What is the definition of [word]?": [
+    "The definition of '[word]' is [definition]. Would you like a simple example?",
+    "'[word]' means [definition]. Want me to show it in a sentence?",
+    "It’s defined as [definition]. Would you like me to give a similar word?"
+  ],
+  "How do you define [word]?": [
+    "You can define '[word]' as [definition]. Want me to show synonyms too?",
+    "'[word]' refers to [definition]. Should I provide an example?",
+    "It’s [definition]. Would you like a short explanation?"
+  ],
+  "Can you explain [word]?": [
+    "Sure! '[word]' means [definition]. Do you want an example?",
+    "Absolutely! '[word]' refers to [definition]. Should I illustrate it?",
+    "'[word]' is defined as [definition]. Want me to break it down further?"
+  ],
+  "What is the meaning of [word]?": [
+    "'[word]' means [definition]. Do you want a sentence example?",
+    "It refers to [definition]. Want me to give you synonyms?",
+    "The meaning of '[word]' is [definition]. Would you like context?"
+  ],
+  "What does it mean when someone says [word]?": [
+    "When someone says '[word]', they mean [definition]. Want a practical example?",
+    "It refers to [definition]. Would you like me to show it in a sentence?",
+    "'[word]' means [definition] in that context. Should I explain further?"
+  ],
+  "Could you clarify [word]?": [
+    "Of course! '[word]' is [definition]. Do you want an example sentence?",
+    "Sure! It refers to [definition]. Should I show usage?",
+    "Yes, '[word]' means [definition]. Want a simple illustration?"
+  ],
+  "How is [word] used?": [
+    "'[word]' is typically used in this way: [example]. Need more examples?",
+    "It can be used like this: [example]. Want me to explain synonyms?",
+    "A common usage of '[word]' is [example]. Should I give alternatives?"
+  ],
+  "What is another word for [word]?": [
+    "Another word for '[word]' is [synonym]. Would you like more options?",
+    "'[word]' can also be expressed as [synonym]. Want additional synonyms?",
+    "You could use [synonym] instead of '[word]'. Should I give more?"
+  ],
+  "What are the synonyms of [word]?": [
+    "Some synonyms for '[word]' are [synonyms]. Do you want examples?",
+    "'[word]' can also mean [synonyms]. Want me to show them in sentences?",
+    "You might use [synonyms] instead of '[word]'. Should I illustrate?"
+  ],
+  "What are the antonyms of [word]?": [
+    "The antonyms of '[word]' include [antonyms]. Want me to explain them?",
+    "'[word]' is the opposite of [antonyms]. Should I give examples?",
+    "You can use [antonyms] as antonyms for '[word]'. Want context?"
+  ],
+  "How do you pronounce [word]?": [
+    "‘[word]’ is pronounced as [pronunciation]. Need audio or spelling tips?",
+    "It sounds like [pronunciation]. Would you like a phonetic guide?",
+    "You say it as [pronunciation]. Want me to give examples in sentences?"
+  ],
+  "What is the origin of [word]?": [
+    "'[word]' comes from [origin]. Do you want to know its history?",
+    "The word originated in [origin]. Shall I explain how it evolved?",
+    "'[word]' traces back to [origin]. Want me to give an example of its first use?"
+  ],
+  "Is [word] formal or informal?": [
+    "'[word]' is considered [formal/informal]. Do you want a context example?",
+    "It’s usually [formal/informal]. Shall I show usage in a sentence?",
+    "'[word]' is [formal/informal]. Want me to suggest alternatives?"
+  ],
+  "Is [word] slang?": [
+    "Yes, '[word]' is slang. Do you want to see its meaning in casual context?",
+    "No, it’s not slang. Shall I explain how it’s usually used?",
+    "'[word]' can be slang. Want examples of informal usage?"
+  ],
+  "Is [word] American or British English?": [
+    "'[word]' is [American/British]. Want examples from each variant?",
+    "It’s primarily used in [American/British English]. Shall I illustrate?",
+    "'[word]' belongs to [variant] English. Want me to show common usage?"
+  ],
+  "Can [word] be used in writing?": [
+    "Yes, '[word]' can be used in writing. Want an example sentence?",
+    "Absolutely! It’s suitable for writing. Shall I give a usage tip?",
+    "Yes, you can write '[word]'. Do you want context for formal writing?"
+  ],
+  "What part of speech is [word]?": [
+    "'[word]' is a [noun/verb/adjective/adverb]. Want an example sentence?",
+    "It functions as a [part of speech]. Shall I illustrate usage?",
+    "The part of speech for '[word]' is [part of speech]. Need synonyms?"
+  ],
+  "Is [word] a noun, verb, adjective, or adverb?": [
+    "'[word]' is a [part of speech]. Do you want to see it in a sentence?",
+    "It’s classified as [part of speech]. Shall I show usage?",
+    "'[word]' functions as a [part of speech]. Want examples?"
+  ]
+}

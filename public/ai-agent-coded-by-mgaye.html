@@ -874,17 +874,33 @@
           }
         }
 
+        // handleGreetings(message) {
+        //   // fetch from json
+        //   if (!this.greetings) return null;
+        //   const lowerMessage = message.toLowerCase();
+
+        //   for (const key in this.greetings) {
+        //     if (lowerMessage.includes(key)) {
+        //       const responses = this.greetings[key];
+        //       return responses[Math.floor(Math.random() * responses.length)];
+        //     }
+        //   }
+        //   return null;
+        // }
+
         handleGreetings(message) {
-          // fetch from json
           if (!this.greetings) return null;
+
           const lowerMessage = message.toLowerCase();
 
           for (const key in this.greetings) {
-            if (lowerMessage.includes(key)) {
+            const regex = new RegExp(`\\b${key}\\b`, "i");
+            if (regex.test(lowerMessage)) {
               const responses = this.greetings[key];
               return responses[Math.floor(Math.random() * responses.length)];
             }
           }
+
           return null;
         }
 
@@ -918,6 +934,13 @@
                   `;
           this.messagesContainer.appendChild(messageDiv);
           this.scrollToBottom();
+        }
+
+        escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text;
+          return div.innerHTML;
+          // return `<div>${text}</div>`;
         }
 
         addThinkingIndicator() {
@@ -1373,6 +1396,38 @@
           return "neutral";
         }
 
+        analyzeSentiment(message) {
+          const positifWords = [
+            "good",
+            "great",
+            "excellent",
+            "amazing",
+            "|wonderful",
+            "love",
+            "like",
+            "happy",
+            "pleased",
+          ];
+          const negatifWords = [
+            "terrible",
+            "awful",
+            "hate",
+            "dislike",
+            "sad",
+            "angry",
+            "frustrated",
+            "problem",
+            "issue",
+          ];
+
+          const positive = positifWords.map((w) => message.includes(w));
+          const negative = negatifWords.map((w) => message.includes(w));
+
+          if (positive && !negative) return "positive";
+          if (negative && !positive) return "negative";
+          return "neutral";
+        }
+
         async searchWeb(query) {
           const sources = [];
           try {
@@ -1635,7 +1690,6 @@
 
         formatSources(sources) {
           if (sources.length === 0) return "";
-
           let html =
             '<div class="sources-panel"><div class="sources-title">🔍 Sources Analyzed</div>';
 
@@ -1694,13 +1748,6 @@
         scrollToBottom() {
           this.messagesContainer.scrollTop =
             this.messagesContainer.scrollHeight;
-        }
-
-        escapeHtml(text) {
-          // const div = document.createElement("div");
-          // div.textContent = text;
-          // return div.innerHTML;
-          return `<div>${text}</div>`;
         }
       }
 

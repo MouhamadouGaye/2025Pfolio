@@ -248,14 +248,6 @@
 
 
 
-
-
-
-
-
-
-
-
   "ça se passe ": [
     "Ça va bien merci 😊 Et vous ? Sur quoi travaillez-vous en ce moment ?",
     "Tout roule 😎 Et toi ? Tu veux que je t’aide à avancer sur quelque chose ?",
@@ -352,12 +344,26 @@
     "Salut ! Comment se passe ton aprèm ?",
     "Hey 👋 Tout se passe bien cet après-midi ?"
   ],
+    "apres-midi": [
+    "Bon après-midi ! Tu fais quoi de beau ?",
+    "Salut ! Comment se passe ton aprèm ?",
+    "Hey 👋 Tout se passe bien cet après-midi ?"
+  ],
+  "apres midi": [
+    "Bon après-midi ! Tu fais quoi de beau ?",
+    "Salut ! Comment se passe ton aprèm ?",
+    "Hey 👋 Tout se passe bien cet après-midi ?"
+  ],
   "soirée": [
     "Bonne soirée ! Tu fais quoi ce soir ?",
     "Hey ! Comment se passe ta soirée ?",
     "Bonne soirée 🌙 Détends-toi bien !"
   ],
-
+    "soiree": [
+    "Bonne soirée ! Tu fais quoi ce soir ?",
+    "Hey ! Comment se passe ta soirée ?",
+    "Bonne soirée 🌙 Détends-toi bien !"
+  ],
 
 
 
@@ -445,10 +451,10 @@
     "D’accord 😔 Parlez-moi un peu de ce qui ne va pas, je peux peut-être aider.",
     "Ah mince… Je peux faire quelque chose pour améliorer ça ?",
     "Je comprends ! On va essayer de rendre les choses plus simples ensemble."
-  ]
+  ],
 
 
-,
+
 
   "yes": [
     "Great! 👍 What would you like to do next?",
