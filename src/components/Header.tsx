@@ -64,12 +64,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
         </a>
         <a
           href="https://2025-pfolio.vercel.app/ai-agent-coded-by-mgaye.html"
-          className={`${isDarkMode ? "bg-white text-black rounded-md hover:bg-blue-100 px-4 py-2 text-xs" : "text-blue-500 border b-1 hover:border-blue-600 px-4 py-2 rounded-md text-xs"}`}
+          className={`${isDarkMode ? "bg-white text-black rounded-md hover:bg-blue-100 px-3 py-1 text-xs" : "text-blue-500 border b-1 hover:border-blue-600 px-3 py-1 rounded-md text-xs"}`}
         >
           *my-ai
         </a>
         <a
-          className={`${isDarkMode ? "bg-green-300 text-gray-800 px-4 py-2 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-4 py-2 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
+          className={`${isDarkMode ? "bg-green-300 text-gray-800 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
           href="https://storage.googleapis.com/terraform-html-demo-html-site/index.html"
         >
           Deploy what I build
