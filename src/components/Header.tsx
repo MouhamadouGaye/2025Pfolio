@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           *my-ai
         </a>
         <a
-          className="bg-green-300 text-black px-4 py-2 rounded-md hover:bg-green-400 transition duration-200"
+          className="bg-green-300 text-black px-4 py-2 rounded-md hover:bg-green-400 transition duration-200 text-xs"
           href="https://storage.googleapis.com/terraform-html-demo-html-site/index.html"
         >
           Deploy what I build
