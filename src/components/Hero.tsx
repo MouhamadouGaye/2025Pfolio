@@ -31,7 +31,7 @@ const Hero = () => {
           >
             <div className="flex items-center justify-between">
               {/* Left: Name */}
-              <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
                 Mouhamadou GAYE
               </h1>
 
@@ -39,7 +39,7 @@ const Hero = () => {
               <img
                 src="/assets/Gaye.png"
                 alt="Mouhamadou GAYE"
-                className="w-60 h-60 object-cover rounded-md mr-8  translate-y-3 "
+                className="w-60 h-60 object-cover rounded-md mr-10  translate-y-3 "
               />
             </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
