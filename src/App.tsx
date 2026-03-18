@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import PostPage from "./blog/PostPage";
 import Animation from "./components/Animation";
+import PostList from "./blog/PostList";
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -40,6 +41,7 @@ function App() {
               </main>
             }
           />
+          <Route path="/blog" element={<PostList isDarkMode={isDarkMode} />} />
           <Route path="/posts/:id" element={<PostPage />} />
         </Routes>
         <Footer />
