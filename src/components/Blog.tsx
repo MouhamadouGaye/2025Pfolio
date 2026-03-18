@@ -23,7 +23,7 @@ const Blog = () => {
         console.log("Reel post from a backend: ", posts);
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Failed to fetch blog posts"
+          err instanceof Error ? err.message : "Failed to fetch blog posts",
         );
       } finally {
         setIsLoading(false);
@@ -60,6 +60,31 @@ const Blog = () => {
         readTime: "6 min read",
         tags: ["FinTech", "Banking", "Technology"],
       },
+
+      {
+        id: 1,
+        title: "Building Scalable Microservices with Spring Boot",
+        content:
+          "Learn how to design and implement scalable microservices architecture using Spring Boot and best practices...",
+        image:
+          "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        author: "John Doe",
+        date: "2024-03-15",
+        readTime: "8 min read",
+        tags: ["Microservices", "Spring Boot", "Java"],
+      },
+      {
+        id: 2,
+        title: "Financial Technology: The Future of Banking",
+        content:
+          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
+        image:
+          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        author: "Jane Smith",
+        date: "2024-03-10",
+        readTime: "6 min read",
+        tags: ["FinTech", "Banking", "Technology"],
+      },
     ];
 
     setMockPosts(mockPosts);
@@ -69,7 +94,8 @@ const Blog = () => {
 
   return (
     <>
-      <section
+      {/* this is dev mode with the real data from the backend is: {JSON.stringify(posts)} */}
+      {/* <section
         id="blog"
         className="py-20 bg-gray-50 dark:bg-gray-800"
         ref={blogRef}
@@ -148,7 +174,7 @@ const Blog = () => {
                             {tag}
                           </span>
                         ))}
-                      </div> */}
+                      </div>
 
                       <a href={`/posts/${post.id}`}>
                         <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
@@ -162,7 +188,7 @@ const Blog = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section
         id="blog"
         className="py-20 bg-gray-50 dark:bg-gray-800"

@@ -29,7 +29,20 @@ const Hero = () => {
                 : "opacity-0 translate-y-12"
             } space-y-8`}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+            <div className="flex items-center justify-between">
+              {/* Left: Name */}
+              <h1 className="text-5xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+                Mouhamadou GAYE
+              </h1>
+
+              {/* Right: Image */}
+              <img
+                src="/assets/Gaye.png"
+                alt="Mouhamadou GAYE"
+                className="w-60 h-60 object-cover rounded-md mr-8  translate-y-3 "
+              />
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
               Software Developer
               <span className="text-blue-600 dark:text-blue-400 inline">
                 {" "}
@@ -38,14 +51,12 @@ const Hero = () => {
               <span className="text-teal-600 dark:text-teal-400">
                 Business Strategist
               </span>
-            </h1>
-
+            </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
               I'm a software developer with a passion for crafting smart and
               scalable solutions. With a strong foundation in code and an MBA in
               Finance, I bring a unique perspective to every project.
             </p>
-
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
                 href="#projects"
@@ -60,7 +71,6 @@ const Hero = () => {
                 Contact Me
               </a>
             </div>
-
             <div className="flex items-center gap-6 pt-4">
               <a
                 href="https://github.com/mouhamadougaye"
