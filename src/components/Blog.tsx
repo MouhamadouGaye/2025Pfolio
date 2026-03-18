@@ -2,9 +2,21 @@ import React, { useRef, useState, useEffect } from "react";
 import { useIntersectionObserver } from "../utils/hooks";
 import { BookOpen, Clock, Link, Tag } from "lucide-react";
 import type { BlogPost, MockBlogPost } from "../types";
+import { getPosts } from "../api/kobe-blog";
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  imageUrl: string;
+  author: string;
+  readTime: string;
+  date: Date;
+  tags: string[];
+}
 
 const Blog = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [mockPosts, setMockPosts] = useState<MockBlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,34 +45,13 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    getPosts().then(setPosts);
+  }, []);
+
   // Temporary mock data while API is not available
   useEffect(() => {
     const mockPosts: MockBlogPost[] = [
-      {
-        id: 1,
-        title: "Building Scalable Microservices with Spring Boot",
-        content:
-          "Learn how to design and implement scalable microservices architecture using Spring Boot and best practices...",
-        image:
-          "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        author: "John Doe",
-        date: "2024-03-15",
-        readTime: "8 min read",
-        tags: ["Microservices", "Spring Boot", "Java"],
-      },
-      {
-        id: 2,
-        title: "Financial Technology: The Future of Banking",
-        content:
-          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
-        image:
-          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        author: "Jane Smith",
-        date: "2024-03-10",
-        readTime: "6 min read",
-        tags: ["FinTech", "Banking", "Technology"],
-      },
-
       {
         id: 1,
         title: "Building Scalable Microservices with Spring Boot",
@@ -266,6 +257,60 @@ const Blog = () => {
                             {tag}
                           </span>
                         ))}
+                      </div>
+
+                      <a href={`/posts/${post.id}`}>
+                        <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
+                          Read More →
+                        </button>
+                      </a>
+                    </div>
+                  </article>
+                ))}
+
+                {posts.map((post) => (
+                  <article
+                    key={post.id}
+                    className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                  >
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={post.imageUrl}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                    </div>
+
+                    <div className="p-6">
+                      <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        <span>{post.author || "Mouhamadou GAYE"}</span>
+                        <span>•</span>
+                        <span>{new Date(post.date).toLocaleDateString()}</span>
+                        <span className="flex items-center">
+                          <Clock size={14} className="mr-1" />
+                          {post.readTime || ""}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        {post.title}
+                      </h3>
+
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                        {post.content.substring(1, 120) + "..."}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {post.tags &&
+                          post.tags.map((tag: any) => (
+                            <span
+                              key={tag}
+                              className="flex items-center text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-3 py-1 rounded-full"
+                            >
+                              <Tag size={14} className="mr-1" />
+                              {tag}
+                            </span>
+                          ))}
                       </div>
 
                       <a href={`/posts/${post.id}`}>
