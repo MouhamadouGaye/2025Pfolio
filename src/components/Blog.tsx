@@ -102,18 +102,6 @@ const Blog = () => {
         readTime: "6 min read",
         tags: ["FinTech", "Banking", "Technology"],
       },
-      {
-        id: 5,
-        title: "Financial Technology: The Future of Banking",
-        content:
-          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
-        image:
-          "https://storage.googleapis.com/blog-images-money-transfer-frontend/IMG_0438.JPG",
-        author: "Jane Smith",
-        date: "2024-03-10",
-        readTime: "6 min read",
-        tags: ["FinTech", "Banking", "Technology"],
-      },
     ];
 
     setMockPosts(mockPosts);
