@@ -82,7 +82,7 @@ const Blog = () => {
         content:
           "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
         image:
-          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          "https://storage.googleapis.com/blog-images-money-transfer-frontend/26a73881-c0c0-491b-8c5b-66e11a96a8a1-bryantkobe.jpg",
         author: "Jane Smith",
         date: "2024-03-10",
         readTime: "6 min read",
@@ -94,7 +94,7 @@ const Blog = () => {
         content:
           "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
         image:
-          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          "https://storage.googleapis.com/blog-images-money-transfer-frontend/70ae574a-c6e5-4408-8556-696b61922fca-Dynamic%20Delivery%20Service%20Logo%20-%20'yonei'.png",
         author: "Jane Smith",
         date: "2024-03-10",
         readTime: "6 min read",
@@ -106,7 +106,7 @@ const Blog = () => {
         content:
           "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
         image:
-          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          "https://storage.googleapis.com/blog-images-money-transfer-frontend/IMG_0438.JPG",
         author: "Jane Smith",
         date: "2024-03-10",
         readTime: "6 min read",
