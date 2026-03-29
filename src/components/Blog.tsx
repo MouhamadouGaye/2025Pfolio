@@ -313,7 +313,9 @@ const Blog = () => {
                           ))}
                       </div>
 
-                      <a href={`/posts/${post.id}`}>
+                      <a
+                        href={`http://blog-frontend-site.storage.googleapis.com/posts/${post.id}`}
+                      >
                         <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
                           Read More →
                         </button>
