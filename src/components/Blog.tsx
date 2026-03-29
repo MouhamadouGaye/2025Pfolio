@@ -76,6 +76,42 @@ const Blog = () => {
         readTime: "6 min read",
         tags: ["FinTech", "Banking", "Technology"],
       },
+      {
+        id: 3,
+        title: "Financial Technology: The Future of Banking",
+        content:
+          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
+        image:
+          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        author: "Jane Smith",
+        date: "2024-03-10",
+        readTime: "6 min read",
+        tags: ["FinTech", "Banking", "Technology"],
+      },
+      {
+        id: 4,
+        title: "Financial Technology: The Future of Banking",
+        content:
+          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
+        image:
+          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        author: "Jane Smith",
+        date: "2024-03-10",
+        readTime: "6 min read",
+        tags: ["FinTech", "Banking", "Technology"],
+      },
+      {
+        id: 5,
+        title: "Financial Technology: The Future of Banking",
+        content:
+          "Exploring how modern technology is reshaping the banking industry and creating new opportunities...",
+        image:
+          "https://images.pexels.com/photos/7567444/pexels-photo-7567444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        author: "Jane Smith",
+        date: "2024-03-10",
+        readTime: "6 min read",
+        tags: ["FinTech", "Banking", "Technology"],
+      },
     ];
 
     setMockPosts(mockPosts);
