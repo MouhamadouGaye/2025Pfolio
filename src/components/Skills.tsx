@@ -80,7 +80,7 @@ const Skills = () => {
                       </div>
                       <div className="flex justify-start items-center ">
                         {" "}
-                        <h3 className="font-medium text-gray-900 dark:text-white">
+                        <h3 className="text-sm font-medium text-gray-900 dark:text-white">
                           {skill.name}
                         </h3>
                         <span className="absolute right-0 ">
