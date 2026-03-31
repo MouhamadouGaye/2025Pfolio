@@ -139,6 +139,9 @@ export const SKILLS: Skill[] = [
   { name: "Git", icon: "git", lucideIcon: GitBranch, category: "devops" },
   { name: "Docker", icon: "docker", lucideIcon: Ship, category: "devops" },
   { name: "AWS", icon: "cloud", lucideIcon: Cloud, category: "devops" },
+  { name: "GCP", icon: "cloud", lucideIcon: Cloud, category: "devops" },
+  { name: "AZURE", icon: "cloud", lucideIcon: Cloud, category: "devops" },
+
   {
     name: "Fin Analysis",
     icon: "chart",
