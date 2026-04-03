@@ -32,7 +32,7 @@ const Skills = () => {
                 : "opacity-0 translate-y-12"
             }`}
           >
-            <h2 className="bg-text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+            <h2 className="bg-text-3xl text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
               <Code
                 className="mr-3 text-blue-600 dark:text-blue-400"
                 size={28}
