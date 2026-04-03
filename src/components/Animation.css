@@ -70,7 +70,7 @@
   inset: 0;
   border-radius: 20px;
   padding: 2px;
-  /* background: linear-gradient(240deg, #3b82f6, #14b8a6, #fb923c, #3b82f6); */
+  background: linear-gradient(240deg, #3b82f6, #14b8a6, #fb923c, #3b82f6);
   background: linear-gradient(240deg, #3b82f6, #14b8a6, #fb923c, #3b82f6);
 
   background-size: 600% 600%;
@@ -97,7 +97,6 @@
 .summary {
   font-size: 1.05rem;
   line-height: 1.6;
-
   margin-bottom: 1.5rem;
 }
 

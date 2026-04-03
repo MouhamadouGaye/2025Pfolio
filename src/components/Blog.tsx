@@ -49,7 +49,7 @@ const Blog = () => {
     getPosts().then(setPosts);
   }, []);
 
-  const triggers = "http://blog-frontend-site.storage.googleapis.com/posts";
+  // const triggers = "http://blog-frontend-site.storage.googleapis.com/posts";
 
   // Temporary mock data while API is not available
   useEffect(() => {
@@ -339,7 +339,7 @@ const Blog = () => {
                           ))}
                       </div>
 
-                      <a href={`${triggers}/${post.id}`}>
+                      <a href={`/posts/${post.id}`}>
                         <button className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-colors">
                           Read More →
                         </button>

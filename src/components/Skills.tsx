@@ -13,6 +13,10 @@ const Skills = () => {
       ? SKILLS
       : SKILLS.filter((skill) => skill.category === activeCategory);
 
+  // activeCategory === "all"
+  //   ? SKILLS
+  //   : SKILLS.filter((skill) => skill.category === activeCategory);
+
   return (
     <section
       id="skills"
@@ -28,7 +32,7 @@ const Skills = () => {
                 : "opacity-0 translate-y-12"
             }`}
           >
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+            <h2 className="bg-text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
               <Code
                 className="mr-3 text-blue-600 dark:text-blue-400"
                 size={28}
@@ -54,7 +58,7 @@ const Skills = () => {
                     </div>
                   </button>
                 ))}
-                <button
+                {/* <button
                   onClick={() => setActiveCategory("all")}
                   className={`px-4 py-2 rounded-full transition-all ${
                     activeCategory === "all"
@@ -63,7 +67,7 @@ const Skills = () => {
                   }`}
                 >
                   All Skills
-                </button>
+                </button> */}
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

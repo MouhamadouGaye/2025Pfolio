@@ -369,6 +369,7 @@ export const SKILL_CATEGORIES = [
   { id: "frontend", name: "Frontend", icon: LayoutDashboard },
   { id: "devops", name: "DevOps", icon: Code },
   { id: "finance", name: "Business", icon: Briefcase },
+  { id: "all", name: "All Skills", icon: Lightbulb },
 ];
 
 export const PROJECT_CATEGORIES = [

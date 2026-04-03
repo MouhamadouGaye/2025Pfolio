@@ -15,7 +15,12 @@ const Animation = () => {
           className="card-content bg-white text-[#2b354280] dark:bg-slate-800 dark:text-[#94a3b89f]   dark:bg-[linear-gradient(240deg,_#1e40af,_#0f766e,_#ea580c,_#1e40af)]"
         > */}
 
-        <div className="p-4 w-full h-full animate-gradient-x bg-[linear-gradient(240deg,_#3b82f6,_#14b8a6,_#fb923c,_#3b82f6)] bg-[length:200%_200%] dark:bg-[linear-gradient(240deg,_#1e40af,_#0f766e,_#ea580c,_#1e40af)]">
+        <div
+          className="p-4 w-full h-full animate-gradient-x 
+            bg-[linear-gradient(240deg,_#93c5fd,_#5eead4,_#fdba74,_#93c5fd)] 
+            bg-[length:200%_200%] 
+            dark:bg-[linear-gradient(240deg,_#1e40af,_#0f766e,_#ea580c,_#1e40af)]"
+        >
           <h1 className="title text-gray-600 dark:text-[#e0eaff]">
             Financial Technology:{" "}
           </h1>
