@@ -62,18 +62,21 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           </span>
           aye
         </a>
-        <a
-          href="https://2025-pfolio.vercel.app/ai-agent-coded-by-mgaye.html"
-          className={`${isDarkMode ? "bg-white text-black rounded-md hover:bg-blue-100 px-3 py-1 text-xs" : "text-blue-500 border b-1 hover:border-blue-600 px-3 py-1 rounded-md text-xs"}`}
-        >
-          *my-ai
-        </a>
-        <a
-          className={`${isDarkMode ? "bg-green-300 text-gray-800 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
-          href="https://storage.googleapis.com/terraform-html-demo-html-site/index.html"
-        >
-          Deploy what I build
-        </a>
+        <div className="lg:flex gap-2 flex  md:grid ml-3 ">
+          {" "}
+          <a
+            href="https://2025-pfolio.vercel.app/ai-agent-coded-by-mgaye.html"
+            className={` md:transition-transform duration-300 hover:scale-105 ${isDarkMode ? "bg-white text-black rounded-md hover:bg-gray-100 px-3 py-1 text-xs" : "text-blue-500 border b-1 hover:border-blue-600 px-3 py-1 rounded-md text-xs"}`}
+          >
+            *my-ai
+          </a>
+          <a
+            className={`md:transition-transform duration-300 hover:scale-105 ${isDarkMode ? "bg-green-300 text-gray-800 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
+            href="https://storage.googleapis.com/terraform-html-demo-html-site/index.html"
+          >
+            Deploy what I build
+          </a>
+        </div>
         {/* <a
           href="http://localhost:5173/ai-agent-coded-by-mgaye.html"
           className={`${isDarkMode ? "text-white" : "text-blue-500"}`}
@@ -83,12 +86,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-4 md:space-x-6 ml-4">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors text-sm"
                 >
                   {item.title}
                 </a>

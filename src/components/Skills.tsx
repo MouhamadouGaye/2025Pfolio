@@ -20,10 +20,16 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="py-20 bg-gray-50 dark:bg-gray-800"
+      className="py-20 bg-gray-50 dark:bg-gray-800 mx-auto px-4 md:px-6 "
       ref={skillsRef}
     >
-      <div className="container mx-auto px-4 md:px-6">
+      {/* <div
+        className="absolute inset-0 
+    bg-gradient-to-r from-transparent via-blue-200/30 to-transparent 
+    dark:via-slate-600/10
+    bg-[length:200%_100%] animate-gradient-x"
+      /> */}
+      <div className="container ">
         <div className="max-w-5xl mx-auto">
           <div
             className={`transition-all duration-1000 transform ${
@@ -40,7 +46,7 @@ const Skills = () => {
               Skills & Expertise
             </h2>
 
-            <div className="mb-10">
+            <div className="mb-10 ">
               <div className="flex flex-wrap gap-2 mb-8">
                 {SKILL_CATEGORIES.map((category) => (
                   <button
@@ -70,7 +76,7 @@ const Skills = () => {
                 </button> */}
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
                 {filteredSkills.map((skill, index) => (
                   <div
                     key={skill.name}
