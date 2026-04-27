@@ -208,7 +208,7 @@ const Blog = () => {
       </section> */}
       <section
         id="blog"
-        className="py-20 bg-gray-50 dark:bg-gray-800"
+        className="py-20 bg-gray-50 dark:bg-gray-900 "
         ref={blogRef}
       >
         <div className="container mx-auto px-4 md:px-6">

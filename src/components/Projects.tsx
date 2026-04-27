@@ -16,7 +16,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-20 bg-white dark:bg-gray-900 scroll-mt-20"
+      className="py-20 bg-white dark:bg-gray-900 scroll-mt-20 "
       ref={projectsRef}
     >
       <div className="container mx-auto px-4 md:px-6">

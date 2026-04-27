@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { ChevronDown, Github as GitHub, Linkedin, Mail } from "lucide-react";
 import { useIntersectionObserver } from "../utils/hooks";
+import DroneText from "./drone/DroneText";
+import ParticleNetwork from "./drone/ParticleNetwork";
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -29,15 +31,15 @@ const Hero = () => {
                 : "opacity-0 translate-y-12"
             } space-y-8`}
           >
+            {/* <DroneText /> */}
             <div className="flex items-center justify-between">
               {/* Left: Name */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-700 dark:text-white leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-700 dark:text-white leading-tight md:text-4xl">
                 Mouhamadou GAYE
               </h1>
-
               {/* Right: Image */}
               <img
-                src="/assets/Gaye.png"
+                src="/assets/mouhamadougaye.png"
                 alt="Mouhamadou GAYE"
                 className="w-60 h-60 object-cover rounded-md mr-10  translate-y-3 "
               />

@@ -34,7 +34,10 @@ function App() {
                 <About />
                 <Skills />
                 <Projects />
-                <Experience />
+                <Experience
+                  isDarkMode={isDarkMode}
+                  toggleDarkMode={toggleDarkMode}
+                />
                 <Blog />
                 <Animation />
                 <Contact />

@@ -7,7 +7,7 @@ export function useDarkMode() {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme");
       const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
+        "(prefers-color-scheme: dark)",
       ).matches;
 
       return savedTheme === "dark" || (!savedTheme && prefersDark);
@@ -91,7 +91,7 @@ export function useIntersectionObserver(
     threshold: 0.1,
     root: null,
     rootMargin: "0px",
-  }
+  },
 ) {
   const [isVisible, setIsVisible] = useState(false);
 
