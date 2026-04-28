@@ -77,7 +77,6 @@ export const NAV_ITEMS: NavItem[] = [
 // ];
 
 export const SKILLS: Skill[] = [
-  { name: "CEO", icon: "ceo", lucideIcon: Briefcase, category: "finance" },
   { name: "Python", icon: "python", lucideIcon: Code, category: "backend" },
   {
     name: "Flask",
