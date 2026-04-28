@@ -1,15 +1,29 @@
 import React, { useRef, useState } from "react";
 import { useIntersectionObserver } from "../utils/hooks";
-import { Mail, MapPin, PhoneOff, Send } from "lucide-react";
+import {
+  Mail,
+  MailOpen,
+  MapPin,
+  PhoneOff,
+  Send,
+  SendHorizonal,
+  SendIcon,
+} from "lucide-react";
 import Animation from "./Animation";
+const email = "mouhamadou.gayz@gmail.com";
+const subject = encodeURIComponent("Prise de contact");
+const body = encodeURIComponent(
+  "Bonjour,\n\nJe souhaite vous contacter concernant...",
+);
 
+const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-
+  const [disabled, setDisabled] = useState(false);
   const contactRef = useRef<HTMLDivElement>(null);
   const isVisible = useIntersectionObserver(contactRef, { threshold: 0.1 });
 
@@ -59,6 +73,29 @@ const Contact = () => {
                   opportunities? Feel free to reach out – I'm always open to
                   discussing new projects and ideas.
                 </p>
+
+                <div>
+                  <a href={mailtoLink}>
+                    <button
+                      style={{
+                        padding: "10px 16px",
+                        backgroundColor: "#2563eb",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        transition: "background-color 0.3s, color 0.3s",
+                      }}
+                    >
+                      <SendHorizonal size={18} className="mr-2" />
+                      Email contact is preferred for any professional
+                      inquiries.{" "}
+                    </button>
+                  </a>
+                </div>
+                <br />
 
                 <div className="space-y-6">
                   <div className="flex items-start">
@@ -127,7 +164,6 @@ const Contact = () => {
                       onChange={(e) => setName(e.target.value)}
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       placeholder="Your name"
-                      required
                     />
                   </div>
 
