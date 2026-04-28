@@ -89,7 +89,7 @@ const Contact = () => {
                         transition: "background-color 0.3s, color 0.3s",
                       }}
                     >
-                      <SendHorizonal size={18} className="mr-2" />
+                      <SendHorizonal size={20} className="mr-2" />
                       Email contact is preferred for any professional
                       inquiries.{" "}
                     </button>
