@@ -6,7 +6,7 @@ export interface NavItem {
 export interface Skill {
   name: string;
   icon: string;
-  category: "frontend" | "backend" | "devops" | "finance" | "management";
+  category: "frontend" | "backend" | "devops" | "finance";
   lucideIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
