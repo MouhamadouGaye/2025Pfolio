@@ -25,7 +25,8 @@ const Hero = () => {
 
       {/* <div className=" flex mx-auto px-4 md:px-6 relative z-10"> */}
       <div className="flex h-full w-full mx-auto px-4 md:px-6 relative z-10">
-        <aside className="w-[120px] shrink-0 mr-8">
+        {/* <aside className="w-[120px] shrink-0 mr-8"> */}
+        <aside className="hidden lg:block w-[120px] shrink-0 mr-8">
           <VerticalCarousel />
         </aside>
 
