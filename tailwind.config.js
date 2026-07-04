@@ -18,9 +18,18 @@ export default {
         "50%": { backgroundPosition: "100% 50%" },
         "100%": { backgroundPosition: "0% 50%" },
       },
+      scroll: {
+        "0%": {
+          transform: "translateY(0)",
+        },
+        "100%": {
+          transform: "translateY(-50%)",
+        },
+      },
     },
     animation: {
       "gradient-x": "gradient-move 6s ease infinite",
+      scroll: "scroll 20s linear infinite",
     },
   },
   plugins: [require("@designbycode/tailwindcss-text-shadow")],

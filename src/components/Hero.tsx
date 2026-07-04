@@ -3,6 +3,7 @@ import { ChevronDown, Github as GitHub, Linkedin, Mail } from "lucide-react";
 import { useIntersectionObserver } from "../utils/hooks";
 import DroneText from "./drone/DroneText";
 import ParticleNetwork from "./drone/ParticleNetwork";
+import VerticalCarousel from "./carousel/VerticalCarousel";
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -22,7 +23,12 @@ const Hero = () => {
         <div className="absolute right-1/3 bottom-1/4 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      {/* <div className=" flex mx-auto px-4 md:px-6 relative z-10"> */}
+      <div className="flex h-full w-full mx-auto px-4 md:px-6 relative z-10">
+        <aside className="w-[120px] shrink-0 mr-8">
+          <VerticalCarousel />
+        </aside>
+
         <div className="max-w-4xl mx-auto">
           <div
             className={`transition-all duration-1000 transform ${
