@@ -8,7 +8,7 @@ const images = [
 
 export default function VerticalCarousel() {
   return (
-    <div className="h-full w-[120px] overflow-hidden">
+    <div className="h-full w-[80px] overflow-hidden">
       <div className="flex flex-col gap-4 animate-scroll">
         {[...images, ...images].map((img, i) => (
           <img
