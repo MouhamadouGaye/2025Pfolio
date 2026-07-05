@@ -141,7 +141,7 @@ const Contact = () => {
                         Location
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        48 avenue Magenta, Paris
+                        Paris, France
                       </p>
                     </div>
                   </div>
