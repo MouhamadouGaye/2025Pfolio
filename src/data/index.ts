@@ -350,17 +350,18 @@ export const EDUCATION: Education[] = [
       "Focused on financial management, investment analysis, and business strategy",
   },
   {
-    degree: " Master Econimics & Management",
+    degree: " Master Economics & Management",
     institution: "FASEG",
     year: "2016",
     description:
-      "Focused on public and private financial management, and business strategy",
+      "Focused on public and private financial management, and business strategy and decision-making based on financial data and analysis",
   },
   {
     degree: "Computer Science",
     institution: "Open Source",
     year: "2014",
-    description: "Specialized in software engineering and data structures",
+    description:
+      "Specialized in software engineering and data structures on programming languages such as Java, Python, and JavaScript",
   },
 ];
 
