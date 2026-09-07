@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -26,8 +26,13 @@
       }
 
       body {
-        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", Roboto, sans-serif;
+        font-family:
+          "SF Pro Display",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
         background: var(--bg-primary);
         color: var(--text-primary);
         min-height: 100vh;
@@ -283,7 +288,9 @@
           box-shadow: 0 0 20px var(--glow);
         }
         50% {
-          box-shadow: 0 0 40px var(--glow), 0 0 60px var(--glow);
+          box-shadow:
+            0 0 40px var(--glow),
+            0 0 60px var(--glow);
         }
       }
 
@@ -557,7 +564,9 @@
       .typewriter {
         overflow: hidden;
         border-right: 2px solid var(--text-accent);
-        animation: typewriter 0.05s steps(1) forwards, blink 1s infinite;
+        animation:
+          typewriter 0.05s steps(1) forwards,
+          blink 1s infinite;
       }
 
       @keyframes blink {
@@ -721,7 +730,7 @@
             "Hello, I'm getting trained but Soon, I'm your Neural AI Assistant. I can understand context, search the web, analyze data, solve problems, and engage in meaningful conversations. What would you like to explore today?";
           await this.typewriterEffect(
             document.getElementById("welcomeText"),
-            welcomeText
+            welcomeText,
           );
         }
 
@@ -790,54 +799,147 @@
         //   this.aiInput.focus();
         // }
 
+        // async processMessage() {
+        //   const message = this.aiInput.value.trim().toLowerCase();
+        //   if (!message || this.isProcessing) return;
+
+        //   this.isProcessing = true;
+        //   this.sendBtn.disabled = true;
+
+        //   // Add user message
+        //   this.addMessage(message, "user");
+        //   this.aiInput.value = "";
+        //   this.autoResizeInput();
+
+        //   // Add thinking indicator
+        //   const thinkingElement = this.addThinkingIndicator();
+
+        //   await new Promise((r) => setTimeout(r, 300)); // small pause for realism
+
+        //   try {
+        //     // First, check for greetings
+        //     const quickResponse = this.handleGreetings(message);
+        //     let response;
+
+        //     if (quickResponse) {
+        //       response = { text: quickResponse, sources: [] };
+        //     } else {
+        //       // Process the message with AI intelligence
+        //       response = await this.generateIntelligentResponse(message);
+        //     }
+
+        //     // Remove thinking indicator
+        //     thinkingElement.remove();
+
+        //     // Add AI response
+        //     await this.addAIMessage(response);
+        //   } catch (error) {
+        //     console.error("Error processing message:", error);
+        //     thinkingElement.remove();
+        //     await this.addAIMessage({
+        //       text: "I apologize, but I encountered an error processing your request. Please try again.",
+        //       sources: [],
+        //     });
+        //   }
+
+        //   this.isProcessing = false;
+        //   this.sendBtn.disabled = false;
+        //   this.aiInput.focus();
+        // }
         async processMessage() {
-          const message = this.aiInput.value.trim().toLowerCase();
-          if (!message || this.isProcessing) return;
+          const rawMessage = this.aiInput.value.trim();
+
+          if (!rawMessage || this.isProcessing) return;
 
           this.isProcessing = true;
           this.sendBtn.disabled = true;
 
-          // Add user message
-          this.addMessage(message, "user");
+          this.addMessage(rawMessage, "user");
           this.aiInput.value = "";
           this.autoResizeInput();
 
-          // Add thinking indicator
           const thinkingElement = this.addThinkingIndicator();
 
-          await new Promise((r) => setTimeout(r, 300)); // small pause for realism
-
           try {
-            // First, check for greetings
-            const quickResponse = this.handleGreetings(message);
-            let response;
+            // 1. Conserver le message original
+            const message = rawMessage;
 
-            if (quickResponse) {
-              response = { text: quickResponse, sources: [] };
-            } else {
-              // Process the message with AI intelligence
-              response = await this.generateIntelligentResponse(message);
-            }
+            // 2. Ajouter au contexte
+            this.context.push({
+              role: "user",
+              content: message,
+              timestamp: Date.now(),
+            });
 
-            // Remove thinking indicator
+            // 3. Comprendre le message
+            const analysis = await this.analyzeMessageIntelligently(message);
+
+            console.log("AI analysis:", analysis);
+
+            // 4. Décider quoi faire
+            const response = await this.routeRequest(message, analysis);
+
+            // 5. Sauvegarder la réponse
+            this.context.push({
+              role: "assistant",
+              content: response.text,
+              timestamp: Date.now(),
+            });
+
+            // 6. Limiter la mémoire
+            this.trimContext();
+
             thinkingElement.remove();
 
-            // Add AI response
             await this.addAIMessage(response);
           } catch (error) {
-            console.error("Error processing message:", error);
-            thinkingElement.remove();
+            console.error("AI processing error:", error);
+
+            thinkingElement?.remove();
+
             await this.addAIMessage({
-              text: "I apologize, but I encountered an error processing your request. Please try again.",
+              text: "Désolé, j'ai rencontré un problème en traitant votre demande.",
               sources: [],
             });
+          } finally {
+            this.isProcessing = false;
+            this.sendBtn.disabled = false;
+            this.aiInput.focus();
           }
-
-          this.isProcessing = false;
-          this.sendBtn.disabled = false;
-          this.aiInput.focus();
         }
 
+        async routeRequest(message, analysis) {
+          // Salutation simple uniquement
+          if (
+            analysis.intent === "greeting" &&
+            analysis.complexity === "simple"
+          ) {
+            return {
+              text: this.getSmartGreeting(message),
+              sources: [],
+            };
+          }
+
+          // Recherche web
+          if (analysis.needsWebSearch) {
+            const webData = await this.searchWeb(message);
+
+            return await this.synthesizeWithWebData(message, webData, analysis);
+          }
+
+          // Code
+          if (analysis.intent === "coding") {
+            return await this.generateCodingResponse(message, analysis);
+          }
+
+          // Conversation
+          if (analysis.intent === "conversation") {
+            return await this.generateContextualResponse(message, analysis);
+          }
+
+          // Réponse générale
+          return await this.generateContextualResponse(message, analysis);
+        }
         // handleGreetings(message) {
         //   const greetings = {
         //     hi: "Hey! How’s it going?",
@@ -990,7 +1092,7 @@
                               <div class="sender-name">Neural AI</div>
                               <div class="message-time">${new Date().toLocaleTimeString(
                                 [],
-                                { hour: "2-digit", minute: "2-digit" }
+                                { hour: "2-digit", minute: "2-digit" },
                               )}</div>
                           </div>
                       </div>
@@ -1010,7 +1112,7 @@
 
           // Typewriter effect for the response
           const textContainer = messageDiv.querySelector(
-            ".typewriter-container"
+            ".typewriter-container",
           );
           await this.typewriterEffect(textContainer, response.text);
 
@@ -1048,7 +1150,7 @@
           return {
             isQuestion:
               /^(what|how|why|when|where|who|which|can|could|would|should|is|are|do|does|did)/.test(
-                lowerMessage
+                lowerMessage,
               ),
             needsWebSearch: this.needsWebSearch(lowerMessage),
             category: this.categorizeMessage(lowerMessage),
@@ -1206,7 +1308,7 @@
           const wordCount = message.split(" ").length;
           const hasComplexWords =
             /\b(analyze|comprehensive|sophisticated|implementation|methodology)\b/i.test(
-              message
+              message,
             );
 
           if (wordCount > 20 || hasComplexWords) return "high";
@@ -1403,11 +1505,11 @@
         analyzeSentiment(message) {
           const positive =
             /\b(good|great|excellent|amazing|wonderful|love|like|happy|pleased)\b/i.test(
-              message
+              message,
             );
           const negative =
             /\b(bad|terrible|awful|hate|dislike|sad|angry|frustrated|problem|issue)\b/i.test(
-              message
+              message,
             );
 
           if (positive && !negative) return "positive";
@@ -1474,8 +1576,8 @@
             for (const word of keywords) {
               const response = await fetch(
                 `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
-                  word
-                )}`
+                  word,
+                )}`,
               );
               if (response.ok) {
                 const data = await response.json();
@@ -1564,8 +1666,8 @@
             // Fetch dictionary data
             const response = await fetch(
               `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(
-                bestWord
-              )}`
+                bestWord,
+              )}`,
             );
 
             if (response.ok) {
@@ -1578,7 +1680,7 @@
                 return {
                   title: `Dictionary: ${entry.word}`,
                   url: `https://www.merriam-webster.com/dictionary/${encodeURIComponent(
-                    bestWord
+                    bestWord,
                   )}`,
                   content: definition,
                   confidence: "high",
@@ -1594,7 +1696,7 @@
 
         async fetchDefinition(query) {
           const response = await fetch(
-            `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${query}`,
           );
           if (!response.ok) throw new Error("Word not found");
           const data = await response.json();
@@ -1695,11 +1797,11 @@
         generateGeneralResponse(query, analysis) {
           if (analysis.isQuestion) {
             return `That's an interesting question about ${analysis.keywords.join(
-              ", "
+              ", ",
             )}. While I don't have specific real-time data on this topic, I can share that this generally involves understanding the underlying concepts, considering multiple perspectives, and applying critical thinking to evaluate different approaches or solutions.`;
           } else {
             return `I understand you're interested in ${analysis.keywords.join(
-              ", "
+              ", ",
             )}. This is a topic that can be approached from various angles, and the best path forward would depend on your specific goals, context, and constraints. Would you like me to explore any particular aspect in more detail?`;
           }
         }
@@ -1727,12 +1829,12 @@
                                   <a href="${
                                     source.url
                                   }" target="_blank" class="source-url">${this.truncateUrl(
-              source.url
-            )}</a>
+                                    source.url,
+                                  )}</a>
                               </div>
                               <div class="confidence-badge ${confidenceClass}">${
-              source.confidence
-            }</div>
+                                source.confidence
+                              }</div>
                           </div>
                       `;
           });

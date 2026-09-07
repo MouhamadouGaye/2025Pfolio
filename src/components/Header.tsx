@@ -70,12 +70,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           >
             *my-ai
           </a>
-          {/* <a
+          <a
             className={`md:transition-transform duration-300 hover:scale-105 ${isDarkMode ? "bg-green-300 text-gray-800 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
-            href="https://storage.googleapis.com/terraform-html-demo-html-site/index.html"
+            href="https://app.avecsonko.org/"
           >
-            Deploy what I build
-          </a> */}
+            Editor
+          </a>
         </div>
         {/* <a
           href="http://localhost:5173/ai-agent-coded-by-mgaye.html"
