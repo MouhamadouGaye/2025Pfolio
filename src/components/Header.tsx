@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           </a>
           <a
             className={`md:transition-transform duration-300 hover:scale-105 ${isDarkMode ? "bg-green-300 text-gray-800 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs" : "border b-1 border-slate-300 text-gray-700 px-3 py-1 rounded-md hover:bg-green-200 transition duration-200 text-xs hover:text-gray-700"}`}
-            href="https://app.avecsonko.org/"
+            href="https://app.avecsonko.org"
           >
             Editor
           </a>
