@@ -48,9 +48,9 @@ export default function PreviewLink({
               src={href}
               title={`${children} preview`}
               className={styles.previewIframe}
-              style={{
-                transform: `scale(${scale})`,
-              }}
+              // style={{
+              //   transform: `scale(${scale})`,
+              // }}
             />
           </div>
         </a>
