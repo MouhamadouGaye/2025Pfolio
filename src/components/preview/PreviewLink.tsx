@@ -12,8 +12,14 @@ export default function PreviewLink({
   href,
   children,
   variant = "default",
+  darkMode,
 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const PREVIEW_WIDTH = 300;
+  const DESKTOP_WIDTH = 1920;
+
+  const scale = PREVIEW_WIDTH / DESKTOP_WIDTH;
 
   return (
     <div
@@ -25,7 +31,7 @@ export default function PreviewLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${styles.link} ${styles[variant]}`}
+        className={`${styles.link} ${styles[variant]} ${darkMode ? "" : "text-gray-800"}`}
       >
         <span>{children}</span>
         <span className={styles.arrow}>↗</span>
@@ -42,6 +48,9 @@ export default function PreviewLink({
               src={href}
               title={`${children} preview`}
               className={styles.previewIframe}
+              style={{
+                transform: `scale(${scale})`,
+              }}
             />
           </div>
         </a>
