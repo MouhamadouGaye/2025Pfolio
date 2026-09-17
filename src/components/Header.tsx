@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { NAV_ITEMS } from "../data";
 import { useScrollPosition } from "../utils/hooks";
+import PreviewLink from "./preview/PreviewLink";
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -61,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           </span>
           aye
         </a>
-
+        {/* 
         <div className="lg:flex gap-2 flex  md:grid ml-3 ">
           {" "}
           <a
@@ -76,6 +77,24 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           >
             Editor
           </a>
+        </div> */}
+
+        <div className="lg:flex gap-2 flex md:grid ml-3">
+          <PreviewLink
+            href="https://2025-pfolio.vercel.app/ai-agent-coded-by-mgaye.html"
+            darkMode={isDarkMode}
+            variant="ai"
+          >
+            *my-ai
+          </PreviewLink>
+
+          <PreviewLink
+            href="https://app.avecsonko.org"
+            darkMode={isDarkMode}
+            variant="editor"
+          >
+            Editor
+          </PreviewLink>
         </div>
         {/* <a
           href="http://localhost:5173/ai-agent-coded-by-mgaye.html"
