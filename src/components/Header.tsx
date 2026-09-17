@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
 
         <div className="lg:flex gap-2 flex md:grid ml-3">
           <PreviewLink
-            href="https://mouhamadougaye.com"
+            href="https://mouhamadougaye.com/ai-agent-coded-by-mgaye.html"
             darkMode={isDarkMode}
             variant="ai"
           >
