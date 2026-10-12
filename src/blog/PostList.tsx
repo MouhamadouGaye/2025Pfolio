@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "../api/kobe-blog";
+import { getPosts } from "../first-api/kobe-blog";
 import "./PostList.css";
 import { Link } from "react-router-dom";
 
