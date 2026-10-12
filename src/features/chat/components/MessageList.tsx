@@ -1,14 +1,16 @@
+// src/features/chat/components/MessageList.tsx
 import { useEffect, useRef, type FC } from "react";
 import { MessageBubble } from "./MessageBubble";
+import { ThinkingBubble } from "./ThinkingBubble";
 import type { ChatMessage } from "../types";
-import { ThinkingBubble } from "./ThinkingIngBubble";
 
 interface Props {
   messages: ChatMessage[];
   isProcessing: boolean;
+  freshId: string | null;
 }
 
-export const MessageList: FC<Props> = ({ messages, isProcessing }) => {
+export const MessageList: FC<Props> = ({ messages, isProcessing, freshId }) => {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export const MessageList: FC<Props> = ({ messages, isProcessing }) => {
   return (
     <div className="chat-messages">
       {messages.map((m) => (
-        <MessageBubble key={m.id} message={m} />
+        <MessageBubble key={m.id} message={m} animate={m.id === freshId} />
       ))}
       {isProcessing && <ThinkingBubble />}
       <div ref={endRef} />

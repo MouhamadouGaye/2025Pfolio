@@ -520,3 +520,24 @@ body {
     display: none;
   }
 }
+.msg__cursor {
+  display: inline-block;
+  width: 6px;
+  height: 14px;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  border-radius: 1px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}

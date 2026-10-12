@@ -1,11 +1,11 @@
-import { useEffect, type FC } from "react";
-
+// src/pages/ChatPage.tsx
+import type { FC } from "react";
 import "../chat/components/Chat.css";
+import { useChat } from "../chat/hooks/useChat";
 import { ChatHeader } from "../chat/components/ChatHeader";
 import { ChatSidebar } from "../chat/components/ChatSideBar";
 import { MessageList } from "../chat/components/MessageList";
 import { MessageInput } from "../chat/components/MessageInput";
-import { useChat } from "../chat/hooks/useChat";
 
 const ChatPage: FC = () => {
   const {
@@ -14,15 +14,12 @@ const ChatPage: FC = () => {
     activeTopic,
     isProcessing,
     error,
+    freshId, // ← AJOUT
     setActiveTopic,
     sendMessage,
     clearAll,
     exportCSV,
   } = useChat();
-
-  useEffect(() => {
-    console.log("ENV CHECK →", import.meta.env.VITE_OPENROUTER_KEY);
-  }, []);
 
   return (
     <div className="chat-app">
@@ -35,7 +32,11 @@ const ChatPage: FC = () => {
       />
 
       <main className="chat-main">
-        <MessageList messages={messages} isProcessing={isProcessing} />
+        <MessageList
+          messages={messages}
+          isProcessing={isProcessing}
+          freshId={freshId} // ← AJOUT
+        />
 
         {error && <div className="chat-error">{error}</div>}
 

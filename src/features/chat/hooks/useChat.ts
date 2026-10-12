@@ -21,6 +21,7 @@ export interface UseChatReturn {
   activeTopic: Topic | null;
   isProcessing: boolean;
   error: string | null;
+  freshId: string | null; // ← AJOUT
   setActiveTopic: (t: Topic | null) => void;
   sendMessage: (content: string) => Promise<void>;
   clearAll: () => void;
@@ -33,6 +34,7 @@ export function useChat(): UseChatReturn {
   const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [freshId, setFreshId] = useState<string | null>(null); // ← AJOUT
 
   const greetingsRef = useRef<GreetingMap>({});
   const messagesRef = useRef<ChatMessage[]>([]);
@@ -70,6 +72,16 @@ export function useChat(): UseChatReturn {
     setMessages((prev) => [...prev, msg]);
   }, []);
 
+  // Helper : marque un message comme "frais" (à animer en typewriter)
+  // et le démargque après la durée de l'animation + une petite marge.
+  const markFresh = useCallback((id: string, contentLength: number) => {
+    setFreshId(id);
+    const duration = Math.min(contentLength * 12 + 1500, 20000);
+    setTimeout(() => {
+      setFreshId((prev) => (prev === id ? null : prev));
+    }, duration);
+  }, []);
+
   const sendMessage = useCallback(
     async (content: string): Promise<void> => {
       const text = content.trim();
@@ -87,19 +99,23 @@ export function useChat(): UseChatReturn {
       append(userMessage);
 
       try {
+        // ---- 1. Salutation détectée dans greetings.csv ----
         if (text.length < 40) {
           const greeting = findGreeting(text, greetingsRef.current);
           if (greeting) {
+            const id = crypto.randomUUID();
             append({
-              id: crypto.randomUUID(),
+              id,
               role: "assistant",
               content: greeting,
               timestamp: Date.now(),
             });
+            markFresh(id, greeting.length); // ← animation aussi pour les salutations
             return;
           }
         }
 
+        // ---- 2. Construction du contexte ----
         const systemPrompt =
           activeTopic?.prompt_system ??
           "Tu es un assistant IA utile, précis et concis. Réponds en français.";
@@ -115,15 +131,19 @@ export function useChat(): UseChatReturn {
           userMessage,
         ];
 
+        // ---- 3. Appel au serverless /api/chat ----
         const { text: reply, model } = await callAI(context);
 
+        // ---- 4. Ajout de la réponse avec animation ----
+        const id = crypto.randomUUID();
         append({
-          id: crypto.randomUUID(),
+          id,
           role: "assistant",
           content: reply,
           timestamp: Date.now(),
           model,
         });
+        markFresh(id, reply.length); // ← déclenche le typewriter
       } catch (err) {
         const msg = err instanceof Error ? err.message : "Erreur inconnue";
         setError(msg);
@@ -134,17 +154,19 @@ export function useChat(): UseChatReturn {
           timestamp: Date.now(),
           isError: true,
         });
+        // Pas de markFresh sur les erreurs → affichage instantané
       } finally {
         setIsProcessing(false);
       }
     },
-    [activeTopic, append, isProcessing],
+    [activeTopic, append, isProcessing, markFresh],
   );
 
   const clearAll = useCallback((): void => {
     setMessages([]);
     clearStoredHistory();
     setError(null);
+    setFreshId(null);
   }, []);
 
   const exportCSV = useCallback((): void => {
@@ -168,6 +190,7 @@ export function useChat(): UseChatReturn {
     activeTopic,
     isProcessing,
     error,
+    freshId, // ← AJOUT
     setActiveTopic,
     sendMessage,
     clearAll,
