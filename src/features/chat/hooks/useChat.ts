@@ -382,12 +382,126 @@ export function useChat(): UseChatReturn {
   );
 
   /* ---------- Envoi de message ---------- */
+  // const sendMessage = useCallback(
+  //   async (content: string): Promise<void> => {
+  //     const text = content.trim();
+  //     if (!text || isProcessing) return;
+
+  //     // Si aucun thread actif → en créer un à la volée
+  //     if (!activeIdRef.current) {
+  //       const newThread: Thread = {
+  //         id: crypto.randomUUID(),
+  //         title: "Nouveau chat",
+  //         createdAt: Date.now(),
+  //         updatedAt: Date.now(),
+  //         messages: [],
+  //       };
+  //       setThreads((prev) => [newThread, ...prev]);
+  //       setActiveThreadId(newThread.id);
+  //       activeIdRef.current = newThread.id;
+  //     }
+
+  //     setError(null);
+  //     setIsProcessing(true);
+
+  //     const userMessage: ChatMessage = {
+  //       id: crypto.randomUUID(),
+  //       role: "user",
+  //       content: text,
+  //       timestamp: Date.now(),
+  //     };
+  //     appendToActive(userMessage);
+  //     setThreadTitleIfNeeded(makeTitleFromMessage(text));
+
+  //     try {
+  //       // 1. Salutation détectée
+  //       if (text.length < 40) {
+  //         const greeting = findGreeting(text, greetingsRef.current);
+  //         if (greeting) {
+  //           appendToActive({
+  //             id: crypto.randomUUID(),
+  //             role: "assistant",
+  //             content: greeting,
+  //             timestamp: Date.now(),
+  //           });
+  //           return;
+  //         }
+  //       }
+
+  //       // 2. Contexte
+  //       const systemPrompt =
+  //         activeTopic?.prompt_system ??
+  //         "Tu es un assistant IA utile, précis et concis. Réponds en français.";
+
+  //       const currentMessages =
+  //         threadsRef.current.find((t) => t.id === activeIdRef.current)
+  //           ?.messages ?? [];
+
+  //       const context: ChatMessage[] = [
+  //         {
+  //           id: "sys",
+  //           role: "system",
+  //           content: systemPrompt,
+  //           timestamp: Date.now(),
+  //         },
+  //         ...currentMessages.slice(-MAX_CONTEXT),
+  //         userMessage,
+  //       ];
+
+  //       // 3. Message vide à remplir en streaming
+  //       const assistantId = crypto.randomUUID();
+  //       appendToActive({
+  //         id: assistantId,
+  //         role: "assistant",
+  //         content: "",
+  //         timestamp: Date.now(),
+  //       });
+
+  //       // 4. Streaming
+  //       await callAIStream(context, {
+  //         onModel: (model) =>
+  //           patchMessage(assistantId, (m) => ({ ...m, model })),
+  //         onChunk: (delta) =>
+  //           patchMessage(assistantId, (m) => ({
+  //             ...m,
+  //             content: m.content + delta,
+  //           })),
+  //       });
+
+  //       setFreshId(assistantId);
+  //       setTimeout(
+  //         () => setFreshId((prev) => (prev === assistantId ? null : prev)),
+  //         800,
+  //       );
+  //     } catch (err) {
+  //       const msg = err instanceof Error ? err.message : "Erreur inconnue";
+  //       setError(msg);
+  //       appendToActive({
+  //         id: crypto.randomUUID(),
+  //         role: "assistant",
+  //         content: `Une erreur est survenue : ${msg}`,
+  //         timestamp: Date.now(),
+  //         isError: true,
+  //       });
+  //     } finally {
+  //       setIsProcessing(false);
+  //     }
+  //   },
+  //   [
+  //     activeTopic,
+  //     appendToActive,
+  //     patchMessage,
+  //     setThreadTitleIfNeeded,
+  //     isProcessing,
+  //   ],
+  // );
+  /* ---------- Envoi de message ---------- */
   const sendMessage = useCallback(
     async (content: string): Promise<void> => {
       const text = content.trim();
       if (!text || isProcessing) return;
 
-      // Si aucun thread actif → en créer un à la volée
+      // Thread à la volée si aucun actif
       if (!activeIdRef.current) {
         const newThread: Thread = {
           id: crypto.randomUUID(),
@@ -413,8 +527,30 @@ export function useChat(): UseChatReturn {
       appendToActive(userMessage);
       setThreadTitleIfNeeded(makeTitleFromMessage(text));
 
+      // ─── État du streaming ─────────────────────────────
+      // La bulle assistant n'est créée qu'au 1er chunk reçu
+      let assistantId: string | null = null;
+      let accumulated = "";
+      let pendingModel = "";
+      let gotAnyChunk = false;
+
+      const ensureAssistant = (): string => {
+        if (assistantId) return assistantId;
+        assistantId = crypto.randomUUID();
+        appendToActive({
+          id: assistantId,
+          role: "assistant",
+          content: accumulated,
+          timestamp: Date.now(),
+          model: pendingModel || undefined,
+        });
+        // Dès qu'on a un chunk → on retire le ThinkingBubble
+        setIsProcessing(false);
+        return assistantId;
+      };
+
       try {
-        // 1. Salutation détectée
+        // 1. Salutation
         if (text.length < 40) {
           const greeting = findGreeting(text, greetingsRef.current);
           if (greeting) {
@@ -424,6 +560,7 @@ export function useChat(): UseChatReturn {
               content: greeting,
               timestamp: Date.now(),
             });
+            setIsProcessing(false);
             return;
           }
         }
@@ -448,31 +585,46 @@ export function useChat(): UseChatReturn {
           userMessage,
         ];
 
-        // 3. Message vide à remplir en streaming
-        const assistantId = crypto.randomUUID();
-        appendToActive({
-          id: assistantId,
-          role: "assistant",
-          content: "",
-          timestamp: Date.now(),
-        });
-
-        // 4. Streaming
+        // 3. Streaming — la bulle naît au 1er chunk
         await callAIStream(context, {
-          onModel: (model) =>
-            patchMessage(assistantId, (m) => ({ ...m, model })),
-          onChunk: (delta) =>
-            patchMessage(assistantId, (m) => ({
-              ...m,
-              content: m.content + delta,
-            })),
+          onModel: (model) => {
+            pendingModel = model;
+            if (assistantId) {
+              patchMessage(assistantId, (m) => ({ ...m, model }));
+            }
+          },
+          onChunk: (delta) => {
+            gotAnyChunk = true;
+            accumulated += delta;
+
+            if (!assistantId) {
+              ensureAssistant();
+            } else {
+              patchMessage(assistantId, (m) => ({
+                ...m,
+                content: accumulated,
+              }));
+            }
+          },
         });
 
-        setFreshId(assistantId);
-        setTimeout(
-          () => setFreshId((prev) => (prev === assistantId ? null : prev)),
-          800,
-        );
+        // 4. Fin du stream — gestion des cas anormaux
+        if (!gotAnyChunk) {
+          appendToActive({
+            id: crypto.randomUUID(),
+            role: "assistant",
+            content:
+              "Aucun contenu reçu du serveur. Vérifie ta clé API ou réessaie.",
+            timestamp: Date.now(),
+            isError: true,
+          });
+        } else if (assistantId) {
+          setFreshId(assistantId);
+          setTimeout(
+            () => setFreshId((prev) => (prev === assistantId ? null : prev)),
+            800,
+          );
+        }
       } catch (err) {
         const msg = err instanceof Error ? err.message : "Erreur inconnue";
         setError(msg);
@@ -495,7 +647,6 @@ export function useChat(): UseChatReturn {
       isProcessing,
     ],
   );
-
   const clearAll = useCallback((): void => {
     setThreads([]);
     setActiveThreadId(null);
