@@ -291,11 +291,12 @@ body {
 }
 
 /* ============ Messages ============ */
+/* ============ Messages ============ */
 .msg {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   animation: fadeIn 0.3s ease;
-  max-width: 780px;
+  max-width: 680px; /* ← réduit de 780 → 680 */
   width: 100%;
 }
 
@@ -320,8 +321,8 @@ body {
 }
 
 .msg__avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px; /* ← réduit de 30 → 28 */
+  height: 28px;
   border-radius: 8px;
   display: grid;
   place-items: center;
@@ -331,7 +332,7 @@ body {
 
 .msg--ai .msg__avatar {
   background: linear-gradient(135deg, #6366f1, #10b981);
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.25);
 }
 
 .msg--user .msg__avatar {
@@ -350,37 +351,29 @@ body {
   align-items: flex-end;
 }
 
-.msg__meta {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  padding: 0 4px;
-}
-
-.msg--user .msg__meta {
-  flex-direction: row-reverse;
-}
-
-.msg__author {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.msg__meta time {
-  font-size: 11px;
+/* Heure discrète sous le message (optionnelle) */
+.msg__time {
+  font-size: 10.5px;
   color: var(--text-muted);
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.msg:hover .msg__time {
+  opacity: 1; /* n'apparaît qu'au survol */
 }
 
 .msg__content {
-  padding: 11px 15px;
+  padding: 10px 14px; /* ← légèrement resserré */
   border-radius: 12px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.55;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: anywhere;
   border: 1px solid var(--border);
+  max-width: 100%;
 }
 
 .msg--ai .msg__content {
@@ -414,13 +407,15 @@ body {
 
 .msg__model {
   padding: 0 4px;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--text-muted);
+  opacity: 0.7;
 }
 
 .spin {
   animation: spin 1s linear infinite;
 }
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

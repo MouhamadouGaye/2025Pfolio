@@ -73,10 +73,18 @@
 // }
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
+// const FREE_MODELS = [
+//   "qwen/qwen3.6-plus:free",
+//   "meta-llama/llama-3.3-70b-instruct:free",
+//   "openai/gpt-oss-120b:free",
+// ] as const;
+
 const FREE_MODELS = [
   "qwen/qwen3.6-plus:free",
   "meta-llama/llama-3.3-70b-instruct:free",
-  "openai/gpt-oss-120b:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+  "z-ai/glm-4.5-air:free",
+  "openai/gpt-oss-20b:free",
 ] as const;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
