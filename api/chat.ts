@@ -1,83 +1,150 @@
+// // // import type { VercelRequest, VercelResponse } from "@vercel/node";
+
+// // // export default async function handler(req: VercelRequest, res: VercelResponse) {
+// // //   if (req.method !== "POST") {
+// // //     return res.status(405).json({ error: "Method not allowed" });
+// // //   }
+
+// // //   const { messages } = req.body ?? {};
+
+// // //   if (!Array.isArray(messages)) {
+// // //     return res.status(400).json({ error: "messages[] requis" });
+// // //   }
+
+// // //   const apiKey = process.env.OPENROUTER_KEY;
+// // //   if (!apiKey) {
+// // //     return res.status(500).json({ error: "Configuration serveur manquante" });
+// // //   }
+// // //   const FREE_MODELS = [
+// // //     "qwen/qwen3.6-plus:free",
+// // //     "meta-llama/llama-3.3-70b-instruct:free",
+// // //     "openai/gpt-oss-120b:free",
+// // //   ];
+
+// // //   let lastError = "Tous les modèles sont indisponibles";
+
+// // //   for (const model of FREE_MODELS) {
+// // //     try {
+// // //       const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+// // //         method: "POST",
+// // //         headers: {
+// // //           Authorization: `Bearer ${apiKey}`,
+// // //           "Content-Type": "application/json",
+// // //           "HTTP-Referer": req.headers.origin ?? "https://mgaye-ai.vercel.app",
+// // //           "X-Title": "MGaye AI",
+// // //         },
+// // //         body: JSON.stringify({
+// // //           model,
+// // //           messages,
+// // //           max_tokens: 1500,
+// // //           temperature: 0.7,
+// // //         }),
+// // //       });
+
+// // //       if (r.status === 429) continue;
+
+// // //       if (!r.ok) {
+// // //         lastError = `HTTP ${r.status}`;
+// // //         continue;
+// // //       }
+
+// // //       const data = await r.json();
+// // //       return res.status(200).json(data);
+// // //     } catch (e) {
+// // //       lastError = e instanceof Error ? e.message : "Erreur inconnue";
+// // //     }
+// // //   }
+
+// // //   return res.status(502).json({ error: lastError });
+// // // }
+// // // api/chat.ts
 // // import type { VercelRequest, VercelResponse } from "@vercel/node";
+// // import { handleChatRequest } from "./_handler.js";
 
 // // export default async function handler(req: VercelRequest, res: VercelResponse) {
 // //   if (req.method !== "POST") {
 // //     return res.status(405).json({ error: "Method not allowed" });
 // //   }
 
-// //   const { messages } = req.body ?? {};
+// //   const origin = req.headers.origin ?? "https://mgaye-ai.vercel.app";
+// //   const result = await handleChatRequest(req.body, origin);
 
-// //   if (!Array.isArray(messages)) {
-// //     return res.status(400).json({ error: "messages[] requis" });
-// //   }
-
-// //   const apiKey = process.env.OPENROUTER_KEY;
-// //   if (!apiKey) {
-// //     return res.status(500).json({ error: "Configuration serveur manquante" });
-// //   }
-// //   const FREE_MODELS = [
-// //     "qwen/qwen3.6-plus:free",
-// //     "meta-llama/llama-3.3-70b-instruct:free",
-// //     "openai/gpt-oss-120b:free",
-// //   ];
-
-// //   let lastError = "Tous les modèles sont indisponibles";
-
-// //   for (const model of FREE_MODELS) {
-// //     try {
-// //       const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-// //         method: "POST",
-// //         headers: {
-// //           Authorization: `Bearer ${apiKey}`,
-// //           "Content-Type": "application/json",
-// //           "HTTP-Referer": req.headers.origin ?? "https://mgaye-ai.vercel.app",
-// //           "X-Title": "MGaye AI",
-// //         },
-// //         body: JSON.stringify({
-// //           model,
-// //           messages,
-// //           max_tokens: 1500,
-// //           temperature: 0.7,
-// //         }),
-// //       });
-
-// //       if (r.status === 429) continue;
-
-// //       if (!r.ok) {
-// //         lastError = `HTTP ${r.status}`;
-// //         continue;
-// //       }
-
-// //       const data = await r.json();
-// //       return res.status(200).json(data);
-// //     } catch (e) {
-// //       lastError = e instanceof Error ? e.message : "Erreur inconnue";
-// //     }
-// //   }
-
-// //   return res.status(502).json({ error: lastError });
+// //   return res.status(result.status).json(result.data);
 // // }
-// // api/chat.ts
 // import type { VercelRequest, VercelResponse } from "@vercel/node";
-// import { handleChatRequest } from "./_handler.js";
 
-// export default async function handler(req: VercelRequest, res: VercelResponse) {
-//   if (req.method !== "POST") {
-//     return res.status(405).json({ error: "Method not allowed" });
-//   }
-
-//   const origin = req.headers.origin ?? "https://mgaye-ai.vercel.app";
-//   const result = await handleChatRequest(req.body, origin);
-
-//   return res.status(result.status).json(result.data);
-// }
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+// // const FREE_MODELS = [
+// //   "qwen/qwen3.6-plus:free",
+// //   "meta-llama/llama-3.3-70b-instruct:free",
+// //   "openai/gpt-oss-120b:free",
+// // ] as const;
 
 // const FREE_MODELS = [
 //   "qwen/qwen3.6-plus:free",
 //   "meta-llama/llama-3.3-70b-instruct:free",
-//   "openai/gpt-oss-120b:free",
+//   "nvidia/nemotron-3-super-120b-a12b:free",
+//   "z-ai/glm-4.5-air:free",
+//   "openai/gpt-oss-20b:free",
 // ] as const;
+
+// export default async function handler(req: VercelRequest, res: VercelResponse) {
+//   // 1. Méthode
+//   if (req.method !== "POST") {
+//     return res.status(405).json({ error: "Method not allowed" });
+//   }
+
+//   // 2. Payload
+//   const { messages } = req.body ?? {};
+//   if (!Array.isArray(messages) || messages.length === 0) {
+//     return res.status(400).json({ error: "messages[] requis" });
+//   }
+
+//   // 3. Clé API
+//   const apiKey = process.env.OPENROUTER_KEY;
+//   if (!apiKey) {
+//     return res.status(500).json({ error: "Configuration serveur manquante" });
+//   }
+
+//   const origin = (req.headers.origin as string) ?? "https://mouhamadougaye.com";
+
+//   // 4. Fallback en cascade sur les modèles gratuits
+//   let lastError = "Tous les modèles sont indisponibles";
+
+//   for (const model of FREE_MODELS) {
+//     try {
+//       const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+//         method: "POST",
+//         headers: {
+//           Authorization: `Bearer ${apiKey}`,
+//           "Content-Type": "application/json",
+//           "HTTP-Referer": origin,
+//           "X-Title": "MGaye AI",
+//         },
+//         body: JSON.stringify({
+//           model,
+//           messages,
+//           max_tokens: 1500,
+//           temperature: 0.7,
+//         }),
+//       });
+
+//       if (r.status === 429) continue; // rate limit → modèle suivant
+//       if (!r.ok) {
+//         lastError = `OpenRouter ${r.status}: ${await r.text()}`;
+//         continue;
+//       }
+
+//       const data = await r.json();
+//       return res.status(200).json(data);
+//     } catch (e) {
+//       lastError = e instanceof Error ? e.message : "Erreur inconnue";
+//     }
+//   }
+
+//   return res.status(502).json({ error: lastError });
+// }
+
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const FREE_MODELS = [
   "qwen/qwen3.6-plus:free",
@@ -85,21 +152,18 @@ const FREE_MODELS = [
   "nvidia/nemotron-3-super-120b-a12b:free",
   "z-ai/glm-4.5-air:free",
   "openai/gpt-oss-20b:free",
-] as const;
+];
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // 1. Méthode
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // 2. Payload
   const { messages } = req.body ?? {};
   if (!Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: "messages[] requis" });
   }
 
-  // 3. Clé API
   const apiKey = process.env.OPENROUTER_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: "Configuration serveur manquante" });
@@ -107,39 +171,63 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const origin = (req.headers.origin as string) ?? "https://mouhamadougaye.com";
 
-  // 4. Fallback en cascade sur les modèles gratuits
-  let lastError = "Tous les modèles sont indisponibles";
-
   for (const model of FREE_MODELS) {
     try {
-      const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": origin,
-          "X-Title": "MGaye AI",
+      const upstream = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+            "HTTP-Referer": origin,
+            "X-Title": "MGaye AI",
+          },
+          body: JSON.stringify({
+            model,
+            messages,
+            max_tokens: 2000,
+            temperature: 0.7,
+            stream: true, // ⬅️ LE point critique
+          }),
         },
-        body: JSON.stringify({
-          model,
-          messages,
-          max_tokens: 1500,
-          temperature: 0.7,
-        }),
-      });
+      );
 
-      if (r.status === 429) continue; // rate limit → modèle suivant
-      if (!r.ok) {
-        lastError = `OpenRouter ${r.status}: ${await r.text()}`;
-        continue;
+      if (upstream.status === 429) continue;
+      if (!upstream.ok || !upstream.body) continue;
+
+      // ═══════════ EN-TÊTES SSE ═══════════
+      // Doivent être envoyés AVANT le premier write
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache, no-transform");
+      res.setHeader("Connection", "keep-alive");
+      res.setHeader("X-Accel-Buffering", "no"); // ⬅️ empêche Vercel/CDN de bufferiser
+      res.setHeader("Content-Encoding", "identity"); // ⬅️ empêche compression automatique
+
+      // Force l'envoi immédiat des headers
+
+      res.flushHeaders?.();
+
+      // Métadonnée initiale (nom du modèle pour le front)
+      res.write(`data: ${JSON.stringify({ __meta: true, model })}\n\n`);
+
+      // ═══════════ PIPE le stream ═══════════
+      const reader = upstream.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        res.write(decoder.decode(value, { stream: true }));
       }
 
-      const data = await r.json();
-      return res.status(200).json(data);
-    } catch (e) {
-      lastError = e instanceof Error ? e.message : "Erreur inconnue";
+      res.end();
+      return;
+    } catch (err) {
+      console.error(`[chat] ${model} failed:`, err);
+      continue;
     }
   }
 
-  return res.status(502).json({ error: lastError });
+  return res.status(502).json({ error: "Tous les modèles sont indisponibles" });
 }
