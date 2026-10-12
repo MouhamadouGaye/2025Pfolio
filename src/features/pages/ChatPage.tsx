@@ -1,11 +1,12 @@
 // src/pages/ChatPage.tsx
 import type { FC } from "react";
-import "../chat/components/Chat.css";
+
+import "../features/chat/chat.css";
 import { useChat } from "../chat/hooks/useChat";
 import { ChatHeader } from "../chat/components/ChatHeader";
 import { ChatSidebar } from "../chat/components/ChatSideBar";
-import { MessageList } from "../chat/components/MessageList";
 import { MessageInput } from "../chat/components/MessageInput";
+import { MessageList } from "../chat/components/MessageList";
 
 const ChatPage: FC = () => {
   const {
@@ -14,7 +15,7 @@ const ChatPage: FC = () => {
     activeTopic,
     isProcessing,
     error,
-    freshId, // ← AJOUT
+    freshId, // ← récupéré
     setActiveTopic,
     sendMessage,
     clearAll,
@@ -35,7 +36,7 @@ const ChatPage: FC = () => {
         <MessageList
           messages={messages}
           isProcessing={isProcessing}
-          freshId={freshId} // ← AJOUT
+          freshId={freshId}
         />
 
         {error && <div className="chat-error">{error}</div>}

@@ -29,7 +29,11 @@ export const MessageList: FC<Props> = ({ messages, isProcessing, freshId }) => {
   return (
     <div className="chat-messages">
       {messages.map((m) => (
-        <MessageBubble key={m.id} message={m} animate={m.id === freshId} />
+        <MessageBubble
+          key={m.id}
+          message={m}
+          animate={m.id === freshId} // ← seule la dernière IA s'anime
+        />
       ))}
       {isProcessing && <ThinkingBubble />}
       <div ref={endRef} />

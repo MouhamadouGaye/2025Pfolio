@@ -541,3 +541,65 @@ body {
     opacity: 0;
   }
 }
+
+/* Texte brut (messages utilisateur) */
+.msg__plain {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Fade-in doux pour les nouvelles réponses IA */
+.msg--enter {
+  animation: msgEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes msgEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Le conteneur markdown ne doit pas ajouter de marge interne */
+.msg__content > .md > *:first-child {
+  margin-top: 0;
+}
+.msg__content > .md > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Fade-in doux pour les nouvelles réponses IA */
+.msg--enter {
+  animation: msgEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes msgEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Texte brut (messages utilisateur, pas de markdown) */
+.msg__plain {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Retire les marges superflues du markdown dans les bulles */
+.msg__content > .md > *:first-child {
+  margin-top: 0;
+}
+.msg__content > .md > *:last-child {
+  margin-bottom: 0;
+}
