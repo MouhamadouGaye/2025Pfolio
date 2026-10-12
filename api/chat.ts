@@ -66,7 +66,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const origin = req.headers.origin ?? "https://mouhamadougaye.com";
+  const origin = req.headers.origin ?? "https://mgaye-ai.vercel.app";
   const result = await handleChatRequest(req.body, origin);
 
   return res.status(result.status).json(result.data);

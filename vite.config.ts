@@ -126,7 +126,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), chatApiDevPlugin()],
     build: { sourcemap: false },
-    server: { sourcemap: false },
     optimizeDeps: { include: ["lucide-react"] },
   };
 });
