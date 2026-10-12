@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useIntersectionObserver } from "../utils/hooks";
 import { BookOpen, Clock, Tag } from "lucide-react";
 import type { MockBlogPost } from "../types";
-import { getPosts } from "../api/kobe-blog";
+import { getPosts } from "../first-api/kobe-blog";
 
 interface Post {
   id: number;
