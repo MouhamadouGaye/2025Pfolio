@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { useDarkMode } from "./utils/hooks";
 import Header from "./components/Header";
@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import PostPage from "./blog/PostPage";
 import Animation from "./components/Animation";
 import PostList from "./blog/PostList";
+import ChatPage from "./features/pages/ChatPage";
 
 function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -24,12 +25,16 @@ function App() {
       <div className={isDarkMode ? "dark" : ""}>
         {" "}
         {/* <ScrollToAnchor /> */}
-        <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route
             path="/"
             element={
               <main>
+                <Header
+                  isDarkMode={isDarkMode}
+                  toggleDarkMode={toggleDarkMode}
+                />
+
                 <Hero />
                 <About />
                 <Skills />
@@ -41,13 +46,15 @@ function App() {
                 <Blog />
                 <Animation />
                 <Contact />
+                <Footer />
               </main>
             }
           />
           <Route path="/blog" element={<PostList isDarkMode={isDarkMode} />} />
           <Route path="/posts/:id" element={<PostPage />} />
+
+          <Route path="/mgaye-ai" element={<ChatPage />} />
         </Routes>
-        <Footer />
       </div>
     </BrowserRouter>
   );
