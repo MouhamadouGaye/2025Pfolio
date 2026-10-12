@@ -1,7 +1,7 @@
 // src/pages/ChatPage.tsx
 import type { FC } from "react";
 
-import "../chat/components/chat.css";
+import "../chat/components/Chat.css";
 import { useChat } from "../chat/hooks/useChat";
 import { ChatHeader } from "../chat/components/ChatHeader";
 import { ChatSidebar } from "../chat/components/ChatSideBar";
