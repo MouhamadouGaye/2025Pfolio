@@ -70,12 +70,17 @@
 // vite.config.ts
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
-import { handleChatRequest } from "./api/_handler";
 
-function chatApiDevPlugin(): Plugin {
+const FREE_MODELS = [
+  "qwen/qwen3.6-plus:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
+  "openai/gpt-oss-120b:free",
+];
+
+function chatApiDevPlugin(apiKey: string): Plugin {
   return {
     name: "chat-api-dev",
-    apply: "serve", // uniquement en mode dev
+    apply: "serve",
     configureServer(server) {
       server.middlewares.use("/api/chat", (req, res) => {
         if (req.method !== "POST") {
@@ -86,19 +91,58 @@ function chatApiDevPlugin(): Plugin {
         }
 
         let body = "";
-        req.on("data", (chunk) => {
-          body += chunk;
-        });
-
+        req.on("data", (chunk) => (body += chunk));
         req.on("end", async () => {
           try {
-            const parsed = JSON.parse(body || "{}");
-            const origin = `http://${req.headers.host ?? "localhost:5173"}`;
-            const result = await handleChatRequest(parsed, origin);
+            const { messages } = JSON.parse(body || "{}");
+            if (!Array.isArray(messages)) {
+              res.statusCode = 400;
+              res.setHeader("Content-Type", "application/json");
+              res.end(JSON.stringify({ error: "messages[] requis" }));
+              return;
+            }
 
-            res.statusCode = result.status;
+            let lastError = "Tous les modèles sont indisponibles";
+            for (const model of FREE_MODELS) {
+              try {
+                const r = await fetch(
+                  "https://openrouter.ai/api/v1/chat/completions",
+                  {
+                    method: "POST",
+                    headers: {
+                      Authorization: `Bearer ${apiKey}`,
+                      "Content-Type": "application/json",
+                      "HTTP-Referer": `http://${req.headers.host}`,
+                      "X-Title": "MGaye AI",
+                    },
+                    body: JSON.stringify({
+                      model,
+                      messages,
+                      max_tokens: 1500,
+                      temperature: 0.7,
+                    }),
+                  },
+                );
+
+                if (r.status === 429) continue;
+                if (!r.ok) {
+                  lastError = `OpenRouter ${r.status}`;
+                  continue;
+                }
+
+                const data = await r.json();
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify(data));
+                return;
+              } catch (e) {
+                lastError = e instanceof Error ? e.message : "Erreur";
+              }
+            }
+
+            res.statusCode = 502;
             res.setHeader("Content-Type", "application/json");
-            res.end(JSON.stringify(result.data));
+            res.end(JSON.stringify({ error: lastError }));
           } catch (err) {
             res.statusCode = 500;
             res.setHeader("Content-Type", "application/json");
@@ -115,16 +159,9 @@ function chatApiDevPlugin(): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-  // ⚠️ Charge TOUTES les variables (pas seulement VITE_*) pour le middleware
   const env = loadEnv(mode, process.cwd(), "");
-
-  // Expose OPENROUTER_KEY au middleware Node (jamais au client)
-  if (env.OPENROUTER_KEY) {
-    process.env.OPENROUTER_KEY = env.OPENROUTER_KEY;
-  }
-
   return {
-    plugins: [react(), chatApiDevPlugin()],
+    plugins: [react(), chatApiDevPlugin(env.OPENROUTER_KEY ?? "")],
     build: { sourcemap: false },
     optimizeDeps: { include: ["lucide-react"] },
   };
