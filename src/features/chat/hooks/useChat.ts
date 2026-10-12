@@ -1,202 +1,3 @@
-// import { useCallback, useEffect, useRef, useState } from "react";
-// import { callAI } from "../services/aiService";
-// import {
-//   findGreeting,
-//   loadGreetings,
-//   loadTopics,
-// } from "../services/topicService";
-// import {
-//   clearHistory as clearStoredHistory,
-//   loadHistory,
-//   saveHistory,
-// } from "../storage/historyStorage";
-// import { downloadCSV, toCSV } from "../utils/csv";
-// import type { ChatMessage, GreetingMap, Topic } from "../types";
-
-// const MAX_CONTEXT = 20;
-
-// export interface UseChatReturn {
-//   messages: ChatMessage[];
-//   topics: Topic[];
-//   activeTopic: Topic | null;
-//   isProcessing: boolean;
-//   error: string | null;
-//   freshId: string | null; // ← AJOUT
-//   setActiveTopic: (t: Topic | null) => void;
-//   sendMessage: (content: string) => Promise<void>;
-//   clearAll: () => void;
-//   exportCSV: () => void;
-// }
-
-// export function useChat(): UseChatReturn {
-//   const [messages, setMessages] = useState<ChatMessage[]>([]);
-//   const [topics, setTopics] = useState<Topic[]>([]);
-//   const [activeTopic, setActiveTopic] = useState<Topic | null>(null);
-//   const [isProcessing, setIsProcessing] = useState(false);
-//   const [error, setError] = useState<string | null>(null);
-//   const [freshId, setFreshId] = useState<string | null>(null); // ← AJOUT
-
-//   const greetingsRef = useRef<GreetingMap>({});
-//   const messagesRef = useRef<ChatMessage[]>([]);
-
-//   useEffect(() => {
-//     messagesRef.current = messages;
-//   }, [messages]);
-
-//   useEffect(() => {
-//     let mounted = true;
-//     (async () => {
-//       try {
-//         const [t, g] = await Promise.all([loadTopics(), loadGreetings()]);
-//         if (!mounted) return;
-//         setTopics(t);
-//         greetingsRef.current = g;
-//       } catch (err) {
-//         if (mounted) {
-//           setError(err instanceof Error ? err.message : "Erreur de chargement");
-//         }
-//       }
-//     })();
-//     const saved = loadHistory();
-//     if (saved.length) setMessages(saved);
-//     return () => {
-//       mounted = false;
-//     };
-//   }, []);
-
-//   useEffect(() => {
-//     if (messages.length) saveHistory(messages);
-//   }, [messages]);
-
-//   const append = useCallback((msg: ChatMessage) => {
-//     setMessages((prev) => [...prev, msg]);
-//   }, []);
-
-//   // Helper : marque un message comme "frais" (à animer en typewriter)
-//   // et le démargque après la durée de l'animation + une petite marge.
-//   const markFresh = useCallback((id: string, contentLength: number) => {
-//     setFreshId(id);
-//     const duration = Math.min(contentLength * 12 + 1500, 20000);
-//     setTimeout(() => {
-//       setFreshId((prev) => (prev === id ? null : prev));
-//     }, duration);
-//   }, []);
-
-//   const sendMessage = useCallback(
-//     async (content: string): Promise<void> => {
-//       const text = content.trim();
-//       if (!text || isProcessing) return;
-
-//       setError(null);
-//       setIsProcessing(true);
-
-//       const userMessage: ChatMessage = {
-//         id: crypto.randomUUID(),
-//         role: "user",
-//         content: text,
-//         timestamp: Date.now(),
-//       };
-//       append(userMessage);
-
-//       try {
-//         // ---- 1. Salutation détectée dans greetings.csv ----
-//         if (text.length < 40) {
-//           const greeting = findGreeting(text, greetingsRef.current);
-//           if (greeting) {
-//             const id = crypto.randomUUID();
-//             append({
-//               id,
-//               role: "assistant",
-//               content: greeting,
-//               timestamp: Date.now(),
-//             });
-//             markFresh(id, greeting.length); // ← animation aussi pour les salutations
-//             return;
-//           }
-//         }
-
-//         // ---- 2. Construction du contexte ----
-//         const systemPrompt =
-//           activeTopic?.prompt_system ??
-//           "Tu es un assistant IA utile, précis et concis. Réponds en français.";
-
-//         const context: ChatMessage[] = [
-//           {
-//             id: "sys",
-//             role: "system",
-//             content: systemPrompt,
-//             timestamp: Date.now(),
-//           },
-//           ...messagesRef.current.slice(-MAX_CONTEXT),
-//           userMessage,
-//         ];
-
-//         // ---- 3. Appel au serverless /api/chat ----
-//         const { text: reply, model } = await callAI(context);
-
-//         // ---- 4. Ajout de la réponse avec animation ----
-//         const id = crypto.randomUUID();
-//         append({
-//           id,
-//           role: "assistant",
-//           content: reply,
-//           timestamp: Date.now(),
-//           model,
-//         });
-//         markFresh(id, reply.length); // ← déclenche le typewriter
-//       } catch (err) {
-//         const msg = err instanceof Error ? err.message : "Erreur inconnue";
-//         setError(msg);
-//         append({
-//           id: crypto.randomUUID(),
-//           role: "assistant",
-//           content: `Une erreur est survenue : ${msg}`,
-//           timestamp: Date.now(),
-//           isError: true,
-//         });
-//         // Pas de markFresh sur les erreurs → affichage instantané
-//       } finally {
-//         setIsProcessing(false);
-//       }
-//     },
-//     [activeTopic, append, isProcessing, markFresh],
-//   );
-
-//   const clearAll = useCallback((): void => {
-//     setMessages([]);
-//     clearStoredHistory();
-//     setError(null);
-//     setFreshId(null);
-//   }, []);
-
-//   const exportCSV = useCallback((): void => {
-//     if (messagesRef.current.length === 0) return;
-//     const rows = messagesRef.current.map((m) => ({
-//       id: m.id,
-//       role: m.role,
-//       content: m.content,
-//       timestamp: new Date(m.timestamp).toISOString(),
-//       model: m.model ?? "",
-//     }));
-//     downloadCSV(
-//       `mgaye-ai-${Date.now()}.csv`,
-//       toCSV(rows, ["id", "role", "content", "timestamp", "model"]),
-//     );
-//   }, []);
-
-//   return {
-//     messages,
-//     topics,
-//     activeTopic,
-//     isProcessing,
-//     error,
-//     freshId, // ← AJOUT
-//     setActiveTopic,
-//     sendMessage,
-//     clearAll,
-//     exportCSV,
-//   };
-// }
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { callAIStream } from "../services/aiService";
 import {
@@ -234,6 +35,7 @@ export interface UseChatReturn {
 
   setActiveTopic: (t: Topic | null) => void;
   sendMessage: (content: string) => Promise<void>;
+  stopGeneration: () => void; // ← ajouté
   clearAll: () => void;
   exportCSV: () => void;
 }
@@ -255,6 +57,7 @@ export function useChat(): UseChatReturn {
   const greetingsRef = useRef<GreetingMap>({});
   const activeIdRef = useRef<string | null>(null);
   const threadsRef = useRef<Thread[]>([]);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     threadsRef.current = threads;
@@ -284,7 +87,6 @@ export function useChat(): UseChatReturn {
     if (!mounted) return;
 
     setThreads(loaded);
-    // Choisit le thread actif : celui stocké, sinon le plus récent, sinon aucun
     const initialActive =
       storedActive && loaded.some((t) => t.id === storedActive)
         ? storedActive
@@ -333,7 +135,6 @@ export function useChat(): UseChatReturn {
   const deleteThread = useCallback((id: string): void => {
     setThreads((prev) => {
       const next = prev.filter((t) => t.id !== id);
-      // Si on supprime le thread actif → bascule sur le plus récent
       if (id === activeIdRef.current) {
         const fallback =
           next.sort((a, b) => b.updatedAt - a.updatedAt)[0]?.id ?? null;
@@ -381,120 +182,13 @@ export function useChat(): UseChatReturn {
     [patchActiveThread],
   );
 
-  /* ---------- Envoi de message ---------- */
-  // const sendMessage = useCallback(
-  //   async (content: string): Promise<void> => {
-  //     const text = content.trim();
-  //     if (!text || isProcessing) return;
+  /* ---------- Arrêt de la génération (TOP-LEVEL) ---------- */
+  const stopGeneration = useCallback((): void => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    setIsProcessing(false);
+  }, []);
 
-  //     // Si aucun thread actif → en créer un à la volée
-  //     if (!activeIdRef.current) {
-  //       const newThread: Thread = {
-  //         id: crypto.randomUUID(),
-  //         title: "Nouveau chat",
-  //         createdAt: Date.now(),
-  //         updatedAt: Date.now(),
-  //         messages: [],
-  //       };
-  //       setThreads((prev) => [newThread, ...prev]);
-  //       setActiveThreadId(newThread.id);
-  //       activeIdRef.current = newThread.id;
-  //     }
-
-  //     setError(null);
-  //     setIsProcessing(true);
-
-  //     const userMessage: ChatMessage = {
-  //       id: crypto.randomUUID(),
-  //       role: "user",
-  //       content: text,
-  //       timestamp: Date.now(),
-  //     };
-  //     appendToActive(userMessage);
-  //     setThreadTitleIfNeeded(makeTitleFromMessage(text));
-
-  //     try {
-  //       // 1. Salutation détectée
-  //       if (text.length < 40) {
-  //         const greeting = findGreeting(text, greetingsRef.current);
-  //         if (greeting) {
-  //           appendToActive({
-  //             id: crypto.randomUUID(),
-  //             role: "assistant",
-  //             content: greeting,
-  //             timestamp: Date.now(),
-  //           });
-  //           return;
-  //         }
-  //       }
-
-  //       // 2. Contexte
-  //       const systemPrompt =
-  //         activeTopic?.prompt_system ??
-  //         "Tu es un assistant IA utile, précis et concis. Réponds en français.";
-
-  //       const currentMessages =
-  //         threadsRef.current.find((t) => t.id === activeIdRef.current)
-  //           ?.messages ?? [];
-
-  //       const context: ChatMessage[] = [
-  //         {
-  //           id: "sys",
-  //           role: "system",
-  //           content: systemPrompt,
-  //           timestamp: Date.now(),
-  //         },
-  //         ...currentMessages.slice(-MAX_CONTEXT),
-  //         userMessage,
-  //       ];
-
-  //       // 3. Message vide à remplir en streaming
-  //       const assistantId = crypto.randomUUID();
-  //       appendToActive({
-  //         id: assistantId,
-  //         role: "assistant",
-  //         content: "",
-  //         timestamp: Date.now(),
-  //       });
-
-  //       // 4. Streaming
-  //       await callAIStream(context, {
-  //         onModel: (model) =>
-  //           patchMessage(assistantId, (m) => ({ ...m, model })),
-  //         onChunk: (delta) =>
-  //           patchMessage(assistantId, (m) => ({
-  //             ...m,
-  //             content: m.content + delta,
-  //           })),
-  //       });
-
-  //       setFreshId(assistantId);
-  //       setTimeout(
-  //         () => setFreshId((prev) => (prev === assistantId ? null : prev)),
-  //         800,
-  //       );
-  //     } catch (err) {
-  //       const msg = err instanceof Error ? err.message : "Erreur inconnue";
-  //       setError(msg);
-  //       appendToActive({
-  //         id: crypto.randomUUID(),
-  //         role: "assistant",
-  //         content: `Une erreur est survenue : ${msg}`,
-  //         timestamp: Date.now(),
-  //         isError: true,
-  //       });
-  //     } finally {
-  //       setIsProcessing(false);
-  //     }
-  //   },
-  //   [
-  //     activeTopic,
-  //     appendToActive,
-  //     patchMessage,
-  //     setThreadTitleIfNeeded,
-  //     isProcessing,
-  //   ],
-  // );
   /* ---------- Envoi de message ---------- */
   const sendMessage = useCallback(
     async (content: string): Promise<void> => {
@@ -527,8 +221,6 @@ export function useChat(): UseChatReturn {
       appendToActive(userMessage);
       setThreadTitleIfNeeded(makeTitleFromMessage(text));
 
-      // ─── État du streaming ─────────────────────────────
-      // La bulle assistant n'est créée qu'au 1er chunk reçu
       let assistantId: string | null = null;
       let accumulated = "";
       let pendingModel = "";
@@ -544,7 +236,6 @@ export function useChat(): UseChatReturn {
           timestamp: Date.now(),
           model: pendingModel || undefined,
         });
-        // Dès qu'on a un chunk → on retire le ThinkingBubble
         setIsProcessing(false);
         return assistantId;
       };
@@ -585,30 +276,36 @@ export function useChat(): UseChatReturn {
           userMessage,
         ];
 
-        // 3. Streaming — la bulle naît au 1er chunk
-        await callAIStream(context, {
-          onModel: (model) => {
-            pendingModel = model;
-            if (assistantId) {
-              patchMessage(assistantId, (m) => ({ ...m, model }));
-            }
-          },
-          onChunk: (delta) => {
-            gotAnyChunk = true;
-            accumulated += delta;
+        // 3. Streaming avec signal d'annulation
+        abortRef.current = new AbortController();
 
-            if (!assistantId) {
-              ensureAssistant();
-            } else {
-              patchMessage(assistantId, (m) => ({
-                ...m,
-                content: accumulated,
-              }));
-            }
-          },
-        });
+        await callAIStream(
+          context,
+          {
+            onModel: (model) => {
+              pendingModel = model;
+              if (assistantId) {
+                patchMessage(assistantId, (m) => ({ ...m, model }));
+              }
+            },
+            onChunk: (delta) => {
+              gotAnyChunk = true;
+              accumulated += delta;
 
-        // 4. Fin du stream — gestion des cas anormaux
+              if (!assistantId) {
+                ensureAssistant();
+              } else {
+                patchMessage(assistantId, (m) => ({
+                  ...m,
+                  content: accumulated,
+                }));
+              }
+            },
+          },
+          abortRef.current.signal,
+        );
+
+        // 4. Fin du stream
         if (!gotAnyChunk) {
           appendToActive({
             id: crypto.randomUUID(),
@@ -626,6 +323,7 @@ export function useChat(): UseChatReturn {
           );
         }
       } catch (err) {
+        // L'AbortError est déjà avalé par callAIStream → on ne l'aura jamais ici
         const msg = err instanceof Error ? err.message : "Erreur inconnue";
         setError(msg);
         appendToActive({
@@ -637,6 +335,7 @@ export function useChat(): UseChatReturn {
         });
       } finally {
         setIsProcessing(false);
+        abortRef.current = null;
       }
     },
     [
@@ -647,6 +346,8 @@ export function useChat(): UseChatReturn {
       isProcessing,
     ],
   );
+
+  /* ---------- Reset ---------- */
   const clearAll = useCallback((): void => {
     setThreads([]);
     setActiveThreadId(null);
@@ -655,6 +356,7 @@ export function useChat(): UseChatReturn {
     clearAllStorage();
   }, []);
 
+  /* ---------- Export CSV ---------- */
   const exportCSV = useCallback((): void => {
     const rows = threadsRef.current.flatMap((t) =>
       t.messages.map((m) => ({
@@ -696,6 +398,7 @@ export function useChat(): UseChatReturn {
     freshId,
     setActiveTopic,
     sendMessage,
+    stopGeneration, // ← bien exposé
     clearAll,
     exportCSV,
   };
