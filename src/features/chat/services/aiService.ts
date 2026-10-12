@@ -1,112 +1,149 @@
-// import type { ChatMessage, AIResponse } from "../types";
+// // import type { ChatMessage, AIResponse } from "../types";
 
-// // import { AIResponse, ChatMessage } from "../types";
+// // // import { AIResponse, ChatMessage } from "../types";
 
-// // const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+// // // const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-// // const FREE_MODELS = [
-// //   "qwen/qwen3.6-plus:free",
-// //   "meta-llama/llama-3.3-70b-instruct:free",
-// //   "openai/gpt-oss-120b:free",
-// //   "mistralai/mistral-small-3.2-24b-instruct:free",
-// // ] as const;
+// // // const FREE_MODELS = [
+// // //   "qwen/qwen3.6-plus:free",
+// // //   "meta-llama/llama-3.3-70b-instruct:free",
+// // //   "openai/gpt-oss-120b:free",
+// // //   "mistralai/mistral-small-3.2-24b-instruct:free",
+// // // ] as const;
 
-// // interface OpenRouterResponse {
-// //   choices?: { message?: { content?: string } }[];
-// //   model?: string;
-// // }
+// // // interface OpenRouterResponse {
+// // //   choices?: { message?: { content?: string } }[];
+// // //   model?: string;
+// // // }
+
+// // // export async function callAI(messages: ChatMessage[]): Promise<AIResponse> {
+// // //   const token = import.meta.env.VITE_OPENROUTER_KEY as string | undefined;
+// // //   if (!token) throw new Error("Clé OpenRouter manquante dans .env");
+
+// // //   const payload = messages
+// // //     .filter((m) => m.content.trim().length > 0)
+// // //     .map((m) => ({ role: m.role, content: m.content }));
+
+// // //   let lastError: Error | null = null;
+
+// // //   for (const model of FREE_MODELS) {
+// // //     try {
+// // //       const res = await fetch(OPENROUTER_URL, {
+// // //         method: "POST",
+// // //         headers: {
+// // //           Authorization: `Bearer ${token}`,
+// // //           "Content-Type": "application/json",
+// // //           "HTTP-Referer": window.location.origin,
+// // //           "X-Title": "Neural AI Assistant",
+// // //         },
+// // //         body: JSON.stringify({
+// // //           model,
+// // //           messages: payload,
+// // //           max_tokens: 1500,
+// // //           temperature: 0.7,
+// // //         }),
+// // //       });
+
+// // //       if (res.status === 429) continue;
+
+// // //       if (!res.ok) {
+// // //         throw new Error(`HTTP ${res.status}`);
+// // //       }
+
+// // //       const data = (await res.json()) as OpenRouterResponse;
+// // //       const text = data.choices?.[0]?.message?.content ?? "";
+// // //       if (!text) throw new Error("Réponse vide");
+
+// // //       return { text, model: data.model ?? model };
+// // //     } catch (err) {
+// // //       lastError = err instanceof Error ? err : new Error(String(err));
+// // //     }
+// // //   }
+
+// // //   throw lastError ?? new Error("Tous les modèles sont indisponibles");
+// // // }
+// // // src/features/chat/services/aiService.ts
 
 // // export async function callAI(messages: ChatMessage[]): Promise<AIResponse> {
-// //   const token = import.meta.env.VITE_OPENROUTER_KEY as string | undefined;
-// //   if (!token) throw new Error("Clé OpenRouter manquante dans .env");
+// //   // Plus besoin de lire la clé ici, elle est sécurisée côté serveur.
 
-// //   const payload = messages
+// //   const payloadMessages = messages
 // //     .filter((m) => m.content.trim().length > 0)
 // //     .map((m) => ({ role: m.role, content: m.content }));
 
-// //   let lastError: Error | null = null;
+// //   try {
+// //     // 1. Appeler votre propre fonction serverless
+// //     const res = await fetch("/api/chat", {
+// //       method: "POST",
+// //       headers: {
+// //         "Content-Type": "application/json",
+// //       },
+// //       body: JSON.stringify({ messages: payloadMessages }),
+// //     });
 
-// //   for (const model of FREE_MODELS) {
-// //     try {
-// //       const res = await fetch(OPENROUTER_URL, {
-// //         method: "POST",
-// //         headers: {
-// //           Authorization: `Bearer ${token}`,
-// //           "Content-Type": "application/json",
-// //           "HTTP-Referer": window.location.origin,
-// //           "X-Title": "Neural AI Assistant",
-// //         },
-// //         body: JSON.stringify({
-// //           model,
-// //           messages: payload,
-// //           max_tokens: 1500,
-// //           temperature: 0.7,
-// //         }),
-// //       });
-
-// //       if (res.status === 429) continue;
-
-// //       if (!res.ok) {
-// //         throw new Error(`HTTP ${res.status}`);
-// //       }
-
-// //       const data = (await res.json()) as OpenRouterResponse;
-// //       const text = data.choices?.[0]?.message?.content ?? "";
-// //       if (!text) throw new Error("Réponse vide");
-
-// //       return { text, model: data.model ?? model };
-// //     } catch (err) {
-// //       lastError = err instanceof Error ? err : new Error(String(err));
+// //     if (!res.ok) {
+// //       const errorData = await res.json();
+// //       throw new Error(errorData.error || `Erreur serveur: ${res.status}`);
 // //     }
-// //   }
 
-// //   throw lastError ?? new Error("Tous les modèles sont indisponibles");
+// //     // 2. Récupérer la réponse
+// //     const data = await res.json();
+// //     const text = data.choices?.[0]?.message?.content ?? "";
+// //     const model = data.model ?? "inconnu";
+
+// //     if (!text) throw new Error("Réponse vide du serveur");
+
+// //     return { text, model };
+// //   } catch (error) {
+// //     console.error("Échec de l'appel à l'API:", error);
+// //     throw new Error(
+// //       error instanceof Error
+// //         ? error.message
+// //         : "Impossible de contacter le service AI.",
+// //     );
+// //   }
 // // }
 // // src/features/chat/services/aiService.ts
+// import type { ChatMessage, AIResponse } from "../types";
 
 // export async function callAI(messages: ChatMessage[]): Promise<AIResponse> {
-//   // Plus besoin de lire la clé ici, elle est sécurisée côté serveur.
-
-//   const payloadMessages = messages
+//   const payload = messages
 //     .filter((m) => m.content.trim().length > 0)
 //     .map((m) => ({ role: m.role, content: m.content }));
 
-//   try {
-//     // 1. Appeler votre propre fonction serverless
-//     const res = await fetch("/api/chat", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ messages: payloadMessages }),
-//     });
+//   const res = await fetch("/api/chat", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ messages: payload }),
+//   });
 
-//     if (!res.ok) {
-//       const errorData = await res.json();
-//       throw new Error(errorData.error || `Erreur serveur: ${res.status}`);
-//     }
-
-//     // 2. Récupérer la réponse
-//     const data = await res.json();
-//     const text = data.choices?.[0]?.message?.content ?? "";
-//     const model = data.model ?? "inconnu";
-
-//     if (!text) throw new Error("Réponse vide du serveur");
-
-//     return { text, model };
-//   } catch (error) {
-//     console.error("Échec de l'appel à l'API:", error);
-//     throw new Error(
-//       error instanceof Error
-//         ? error.message
-//         : "Impossible de contacter le service AI.",
-//     );
+//   if (!res.ok) {
+//     const err = await res.json().catch(() => ({}));
+//     throw new Error(err.error ?? `Erreur ${res.status}`);
 //   }
-// }
-// src/features/chat/services/aiService.ts
-import type { ChatMessage, AIResponse } from "../types";
 
-export async function callAI(messages: ChatMessage[]): Promise<AIResponse> {
+//   const data = await res.json();
+//   const text = data.choices?.[0]?.message?.content ?? "";
+//   if (!text) throw new Error("Réponse vide");
+
+//   return { text, model: data.model ?? "openrouter" };
+// }
+
+import type { ChatMessage } from "../types";
+
+export interface StreamCallbacks {
+  onModel?: (model: string) => void;
+  onChunk: (delta: string) => void;
+}
+
+/**
+ * Envoie les messages au serverless /api/chat et lit la réponse en streaming.
+ * Chaque chunk de texte est transmis via onChunk().
+ */
+export async function callAIStream(
+  messages: ChatMessage[],
+  callbacks: StreamCallbacks,
+): Promise<void> {
   const payload = messages
     .filter((m) => m.content.trim().length > 0)
     .map((m) => ({ role: m.role, content: m.content }));
@@ -122,9 +159,63 @@ export async function callAI(messages: ChatMessage[]): Promise<AIResponse> {
     throw new Error(err.error ?? `Erreur ${res.status}`);
   }
 
-  const data = await res.json();
-  const text = data.choices?.[0]?.message?.content ?? "";
-  if (!text) throw new Error("Réponse vide");
+  if (!res.body) {
+    throw new Error("Le serveur n'a pas renvoyé de stream");
+  }
 
-  return { text, model: data.model ?? "openrouter" };
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+
+    // Les événements SSE sont séparés par \n\n ; on traite ligne par ligne
+    const lines = buffer.split("\n");
+    buffer = lines.pop() ?? "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const data = line.slice(6).trim();
+      if (!data || data === "[DONE]") continue;
+
+      try {
+        const parsed = JSON.parse(data);
+
+        if (parsed.__meta) {
+          callbacks.onModel?.(parsed.model);
+          continue;
+        }
+
+        const delta = parsed.choices?.[0]?.delta?.content;
+        if (typeof delta === "string" && delta.length > 0) {
+          callbacks.onChunk(delta);
+        }
+      } catch {
+        // chunk partiel / malformé → on ignore
+      }
+    }
+  }
+}
+
+/* ————— Fallback non-streaming (optionnel, pour tests) ————— */
+export async function callAI(
+  messages: ChatMessage[],
+): Promise<{ text: string; model: string }> {
+  let full = "";
+  let model = "openrouter";
+
+  await callAIStream(messages, {
+    onModel: (m) => {
+      model = m;
+    },
+    onChunk: (delta) => {
+      full += delta;
+    },
+  });
+
+  return { text: full, model };
 }

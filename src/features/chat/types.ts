@@ -9,6 +9,14 @@ export interface ChatMessage {
   isError?: boolean;
 }
 
+export interface Thread {
+  id: string;
+  title: string;
+  createdAt: number;
+  updatedAt: number;
+  messages: ChatMessage[];
+}
+
 export interface Topic {
   id: string;
   category: string;
