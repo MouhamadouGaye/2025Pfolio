@@ -3,7 +3,6 @@ import { useIntersectionObserver } from "../utils/hooks";
 import { BookOpen, Clock, Tag } from "lucide-react";
 import type { MockBlogPost } from "../types";
 import { getPosts } from "../first-api/kobe-blog";
-import MarkdownRenderer from "./MarkdownRender";
 
 interface Post {
   id: number;
@@ -611,15 +610,9 @@ By combining the familiarity of a spreadsheet with intelligent assistance, flexi
                         {post.title}
                       </h3>
 
-                      {/* <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-gray-600 dark:text-gray-300 mb-4">
                         {post.content.substring(1, 120) + "..."}
-                      </p> */}
-                      <div className="mb-4 min-w-0">
-                        <MarkdownRenderer
-                          content={post.excerpt || post.content}
-                          compact
-                        />
-                      </div>
+                      </p>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.tags.map((tag) => (
                           <span

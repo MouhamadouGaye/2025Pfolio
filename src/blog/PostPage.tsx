@@ -359,7 +359,7 @@ export default function PostPage() {
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <article className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden">
           <img
-            src={post.imageUrl}
+            src={post.image}
             alt={post.title}
             className="w-full h-[450px] object-cover"
           />

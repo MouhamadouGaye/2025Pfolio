@@ -20,16 +20,16 @@ export default function MarkdownRenderer({
         compact ? "markdown-compact" : "markdown-article"
       } ${className}`}
     >
-      <img
-        src={
-          image
-            ? image
-            : "https://mouhamadougaye.com/assets/mouha-the-best-engineer.jpeg"
-        }
-        alt=""
-        loading="lazy"
-        className="mb-4 h-auto max-h-64 w-full rounded-xl object-cover"
-      />
+      {image && (
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          className={`h-auto w-full rounded-xl object-cover ${
+            compact ? "mb-3 max-h-40" : "my-6 max-h-[450px]"
+          }`}
+        />
+      )}
 
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
