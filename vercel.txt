@@ -6,3 +6,6 @@
 //     }
 //   ]
 // }
+
+npm install react-markdown remark-gfm rehype-highlight highlight.js
+npm install -D @types/react-syntax-highlighter

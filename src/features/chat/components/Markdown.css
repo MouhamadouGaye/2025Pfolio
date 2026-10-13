@@ -1,0 +1,189 @@
+.md {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Paragraphes */
+.md p {
+  margin: 0 0 12px;
+}
+.md p:last-child {
+  margin-bottom: 0;
+}
+
+/* Titres */
+.md h1,
+.md h2,
+.md h3,
+.md h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 20px 0 10px;
+  color: var(--text);
+}
+.md h1 {
+  font-size: 20px;
+}
+.md h2 {
+  font-size: 17px;
+}
+.md h3 {
+  font-size: 15px;
+}
+.md h4 {
+  font-size: 14px;
+}
+
+.md h1:first-child,
+.md h2:first-child,
+.md h3:first-child,
+.md h4:first-child {
+  margin-top: 0;
+}
+
+/* Listes */
+.md ul,
+.md ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.md li {
+  margin: 4px 0;
+}
+.md li > p {
+  margin: 0;
+}
+
+/* Task lists (GFM) */
+.md input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: var(--accent);
+}
+
+/* Liens */
+.md a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+.md a:hover {
+  color: #818cf8;
+  border-bottom-color: #818cf8;
+}
+
+/* Gras / italique */
+.md strong {
+  font-weight: 600;
+  color: var(--text);
+}
+.md em {
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* Blockquote */
+.md blockquote {
+  margin: 12px 0;
+  padding: 8px 14px;
+  border-left: 3px solid var(--accent);
+  background: rgba(99, 102, 241, 0.06);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Code inline */
+.md-inline-code {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  font-size: 12.5px;
+  color: #fbbf24;
+}
+
+/* Bloc de code */
+.md-pre {
+  margin: 12px 0;
+  padding: 14px 16px;
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.md-pre code {
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* Scrollbar des blocs de code */
+.md-pre::-webkit-scrollbar {
+  height: 6px;
+}
+.md-pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+/* Tableaux */
+.md-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.md table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.md thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.md th,
+.md td {
+  padding: 9px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.md th {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.md tr:last-child td {
+  border-bottom: none;
+}
+
+/* Séparateur horizontal */
+.md hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
+}
+
+/* Images */
+.md img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 8px 0;
+}
