@@ -662,11 +662,9 @@ By combining the familiarity of a spreadsheet with intelligent assistance, flexi
                       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                         {post.title}
                       </h3>
-
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
-                        {post.content.substring(1, 120) + "..."}
+                      <p className="line-clamp-3 min-w-0 break-words text-sm leading-6 text-gray-600">
+                        {post.content.trim()}
                       </p>
-
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.tags &&
                           post.tags.map((tag: any) => (
