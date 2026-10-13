@@ -20,6 +20,15 @@ export default function MarkdownRenderer({
         compact ? "markdown-compact" : "markdown-article"
       } ${className}`}
     >
+      {image && (
+        <img
+          src={image}
+          alt=""
+          loading="lazy"
+          className="mb-4 h-auto max-h-64 w-full rounded-xl object-cover"
+        />
+      )}
+
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -35,7 +44,7 @@ export default function MarkdownRenderer({
           ),
           img: ({ src, alt }) => (
             <img
-              src={image ?? src}
+              src={src}
               alt={alt ?? ""}
               loading="lazy"
               className="my-6 h-auto max-w-full rounded-xl"
