@@ -9,8 +9,8 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({
-  image,
   content,
+  image,
   className = "",
   compact = false,
 }: MarkdownRendererProps) {
@@ -20,14 +20,16 @@ export default function MarkdownRenderer({
         compact ? "markdown-compact" : "markdown-article"
       } ${className}`}
     >
-      {image && (
-        <img
-          src={image}
-          alt=""
-          loading="lazy"
-          className="mb-4 h-auto max-h-64 w-full rounded-xl object-cover"
-        />
-      )}
+      <img
+        src={
+          image
+            ? image
+            : "https://mouhamadougaye.com/assets/mouha-the-best-engineer.jpeg"
+        }
+        alt=""
+        loading="lazy"
+        className="mb-4 h-auto max-h-64 w-full rounded-xl object-cover"
+      />
 
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
