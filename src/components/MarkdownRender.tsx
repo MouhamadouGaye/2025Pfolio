@@ -3,11 +3,13 @@ import remarkGfm from "remark-gfm";
 
 interface MarkdownRendererProps {
   content: string;
+  image?: string;
   className?: string;
   compact?: boolean;
 }
 
 export default function MarkdownRenderer({
+  image,
   content,
   className = "",
   compact = false,
@@ -33,7 +35,7 @@ export default function MarkdownRenderer({
           ),
           img: ({ src, alt }) => (
             <img
-              src={src}
+              src={image ?? src}
               alt={alt ?? ""}
               loading="lazy"
               className="my-6 h-auto max-w-full rounded-xl"
