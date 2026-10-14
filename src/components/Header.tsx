@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
           </PreviewLink>
 
           <PreviewLink
-            href="https://app.avecsonko.org"
+            href="https://senfile.com"
             darkMode={isDarkMode}
             variant="editor"
           >

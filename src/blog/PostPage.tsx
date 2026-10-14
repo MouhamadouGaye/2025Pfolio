@@ -22,7 +22,7 @@ Writing should be more than typing words onto a blank page. The right workspace 
 
 **Editor** is a modern document creation and collaboration platform designed for students, developers, professionals, researchers, teams, and anyone who works with information. It combines the familiarity of a traditional word processor with a streamlined workflow for creating, organizing, reviewing, and sharing documents.
 
-[**Try Editor →**](https://app.avecsonko.org/)
+[**Try Editor →**](https://senfile.com/)
 
 Learn more on the [official website](https://mouhamadougaye.com/).
 
@@ -99,7 +99,7 @@ Communication is central to modern work, but a video call is only one part of a 
 
 Rather than treating every meeting as an isolated event, Call aims to connect conversations to the work they create.
 
-[**Try Call →**](https://app.avecsonko.org/call)
+[**Try Call →**](https://senfile.com/call)
 
 Learn more on the [official website](https://mouhamadougaye.com/).
 
@@ -183,9 +183,9 @@ The ambition is not simply to reproduce existing conferencing tools. It is to cr
 
 Financial technology, often called **FinTech**, is changing how consumers and businesses interact with banks and financial institutions. Digital services are making everyday financial tasks more accessible while creating new expectations around speed, convenience, security, and personalization.
 
-[**Try Editor →**](https://app.avecsonko.org/)
+[**Try Editor →**](https://senfile.com/)
 
-[**You can have a Try also the Sheet →**](https://app.avecsonko.org/sheet)
+[**You can have a Try also the Sheet →**](https://senfile.com/sheet)
 
 Learn more on the [official website](https://mouhamadougaye.com/).
 
@@ -225,7 +225,7 @@ As datasets and workflows grow, however, spreadsheets can become harder to maint
 
 **Sheet** is envisioned as a modern spreadsheet and data workspace that combines the flexibility of a familiar grid with intelligent assistance, automation, visualization, and collaborative workflows.
 
-[**Try Sheet →**](https://app.avecsonko.org/sheet)
+[**Try Sheet →**](https://senfile.com/sheet)
 
 Learn more on the [official website](https://mouhamadougaye.com/).
 
@@ -375,9 +375,6 @@ export default function PostPage() {
             </div>
 
             <div className="mt-10 border-t border-gray-200 dark:border-gray-700 pt-10">
-              {/* <p className="whitespace-pre-line text-lg leading-9 text-gray-700 dark:text-gray-300">
-                {post.content}
-              </p> */}
               <MarkdownRenderer content={post.content} />
             </div>
           </div>
