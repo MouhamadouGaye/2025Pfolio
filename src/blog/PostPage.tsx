@@ -183,6 +183,12 @@ The ambition is not simply to reproduce existing conferencing tools. It is to cr
 
 Financial technology, often called **FinTech**, is changing how consumers and businesses interact with banks and financial institutions. Digital services are making everyday financial tasks more accessible while creating new expectations around speed, convenience, security, and personalization.
 
+[**Try Editor →**](https://app.avecsonko.org/)
+
+[**You can have a Try also the Sheet →**](https://app.avecsonko.org/sheet)
+
+Learn more on the [official website](https://mouhamadougaye.com/).
+
 ## Key Areas of Innovation
 
 - **Mobile banking:** Manage accounts, review transactions, transfer money, and access services through mobile applications.
