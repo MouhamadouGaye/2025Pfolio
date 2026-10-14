@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // import { getPost } from "../api/kobe-blog";
 import "./PostPage.css";
+import MarkdownRenderer from "../components/MarkdownRender";
 
 export const dummyPosts = [
   {
@@ -389,9 +390,10 @@ export default function PostPage() {
             </div>
 
             <div className="mt-10 border-t border-gray-200 dark:border-gray-700 pt-10">
-              <p className="whitespace-pre-line text-lg leading-9 text-gray-700 dark:text-gray-300">
+              {/* <p className="whitespace-pre-line text-lg leading-9 text-gray-700 dark:text-gray-300">
                 {post.content}
-              </p>
+              </p> */}
+              <MarkdownRenderer content={post.content} />
             </div>
           </div>
         </article>
