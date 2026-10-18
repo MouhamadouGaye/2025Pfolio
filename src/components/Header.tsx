@@ -88,13 +88,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
             *my-ai
           </PreviewLink>
 
-          {/* <PreviewLink
+          <PreviewLink
             href="https://senfile.com"
             darkMode={isDarkMode}
             variant="editor"
           >
             Editor
-          </PreviewLink> */}
+          </PreviewLink>
         </div>
         {/* <a
           href="http://localhost:5173/ai-agent-coded-by-mgaye.html"

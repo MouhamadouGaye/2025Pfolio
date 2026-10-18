@@ -70,9 +70,6 @@ Writing should be more than typing words onto a blank page. The right workspace 
 
 **Editor** is a modern document creation and collaboration platform designed for students, developers, professionals, researchers, teams, and anyone who works with information. It combines the familiarity of a traditional word processor with a streamlined workflow for creating, organizing, reviewing, and sharing documents.
 
-[**Try Editor →**](https://senfile.com/)
-
-Learn more on the [official website](https://mouhamadougaye.com/).
 
 ## The Vision
 
